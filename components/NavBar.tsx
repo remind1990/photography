@@ -19,7 +19,7 @@ const NavBar: React.FC<Props> = () => {
   ];
 
   return (
-    <header className="flex items-center justify-between p-2 bg-orange-100 text-stone-800">
+    <header className="flex items-center justify-between p-2 main-bg text-stone-800">
       <div className="flex items-center">
         <Image
           src="/logo.png"

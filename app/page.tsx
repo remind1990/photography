@@ -1,6 +1,4 @@
-import Image from 'next/image';
-import Main from './pages/Main';
-import NavBar from '@/components/NavBar';
+import Main from './pages/Main/Main';
 
 export default function page() {
   return <Main />;

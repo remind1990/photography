@@ -16,3 +16,11 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+
+.main-bg {
+  @apply bg-gradient-to-r from-orange-50 to-orange-100;
+}
+
+.card {
+  @apply flex flex-col gap-10 items-center px-[40px]  pt-[20px] w-[400px] h-[500px] bg-custom-gradient p-4 shadow-lg  rounded-lg hover:outline hover:outline-2 hover:outline-orange-100 cursor-pointer;
+}
