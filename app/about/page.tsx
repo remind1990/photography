@@ -1,9 +1,10 @@
 import React from 'react';
+import About from '../pages/About/About';
 
 type Props = {};
 
 const page = (props: Props) => {
-  return <div>about</div>;
+  return <About />;
 };
 
 export default page;

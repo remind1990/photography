@@ -24,3 +24,35 @@
 .card {
   @apply flex flex-col gap-10 items-center px-[40px]  pt-[20px] w-[400px] h-[500px] bg-custom-gradient p-4 shadow-lg  rounded-lg hover:outline hover:outline-2 hover:outline-orange-100 cursor-pointer;
 }
+
+.btn-primary {
+  @apply bg-[#fad29e] text-stone-800 hover:bg-[#a99174]  rounded-md transition-colors duration-300;
+}
+
+.btn-secondary {
+  @apply bg-gray-500 text-white hover:bg-gray-600  rounded-lg transition-colors duration-300;
+}
+
+.btn-small {
+  @apply px-2 py-1 text-sm;
+}
+
+.btn-medium {
+  @apply px-4 py-2 text-base;
+}
+
+.btn-large {
+  @apply px-6 py-3 text-lg;
+}
+
+.btn-carousel {
+  @apply z-10 p-2 bg-stone-800 bg-opacity-50 rounded-full w-10 h-10 flex items-center text-lg font-bold justify-center text-stone-100;
+}
+
+.faded-text {
+  font-weight: bold;
+  background: linear-gradient(to right, white 60%, transparent 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

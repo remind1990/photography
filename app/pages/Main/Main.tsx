@@ -1,10 +1,13 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import Button from '@/ui/Button';
+import { useRouter } from 'next/navigation';
 
 const Main = () => {
+  const router = useRouter();
   return (
-    <main className=" w-full  flex flex-col">
+    <section className=" w-full  flex flex-col">
       <div className="w-full flex min-h-[700px] items-center justify-center bg-[url('/bg1.jpg')] bg-center bg-cover text-stone-100">
         <h1 className="text-4xl">Platform for creative people</h1>
       </div>
@@ -80,7 +83,7 @@ const Main = () => {
       <div className="flex w-full min-h-[300px] p-11  gap-[30px] justify-center items-center">
         <div className="card">
           <p className="text-2xl">Individual photosession</p>
-          <p className="text-xl m-w-[100%] overflow-auto">
+          <p className="text-xl m-w-[100%] max-h-[70%] overflow-auto">
             It is a long established fact that a reader will be distracted by
             the readable content of a page when looking at its layout. The point
             of using Lorem Ipsum is that it has a more-or-less normal
@@ -92,10 +95,18 @@ const Main = () => {
             years, sometimes by accident, sometimes on purpose (injected humour
             and the like).
           </p>
+          <Button
+            variant="primary"
+            onClick={() => {
+              router.push('/contacts');
+            }}
+          >
+            Get details!
+          </Button>
         </div>
         <div className="card">
           <p className="text-2xl">Family photosession</p>
-          <p className="text-xl m-w-[100%] overflow-auto">
+          <p className="text-xl m-w-[100%]  max-h-[70%] overflow-auto">
             It is a long established fact that a reader will be distracted by
             the readable content of a page when looking at its layout. The point
             of using Lorem Ipsum is that it has a more-or-less normal
@@ -107,10 +118,18 @@ const Main = () => {
             years, sometimes by accident, sometimes on purpose (injected humour
             and the like).
           </p>
+          <Button
+            variant="primary"
+            onClick={() => {
+              router.push('/contacts');
+            }}
+          >
+            Get details!
+          </Button>
         </div>
         <div className="card">
           <p className="text-2xl">Love story</p>
-          <p className="text-xl m-w-[100%] overflow-auto">
+          <p className="text-xl max-w-[100%] max-h-[70%] overflow-auto">
             It is a long established fact that a reader will be distracted by
             the readable content of a page when looking at its layout. The point
             of using Lorem Ipsum is that it has a more-or-less normal
@@ -122,9 +141,17 @@ const Main = () => {
             years, sometimes by accident, sometimes on purpose (injected humour
             and the like).
           </p>
+          <Button
+            variant="primary"
+            onClick={() => {
+              router.push('/contacts');
+            }}
+          >
+            Get details!
+          </Button>
         </div>
       </div>
-    </main>
+    </section>
   );
 };
 
