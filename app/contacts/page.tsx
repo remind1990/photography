@@ -1,9 +1,8 @@
 import React from 'react';
+import Contacts from '../pages/Contancts/Contacts';
 
-type Props = {};
-
-const page = (props: Props) => {
-  return <div>contatcs</div>;
+const page = () => {
+  return <Contacts />;
 };
 
 export default page;
