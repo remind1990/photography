@@ -1,15 +1,37 @@
 'use client';
+import Loader from '@/components/Loader';
 import Button from '@/ui/Button';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 type Props = {};
 
 function ContactForm({}: Props) {
   const { register, handleSubmit } = useForm();
+  const [loader, setLoader] = useState<boolean>(false);
 
-  const submitForm = (data: any) => {
-    console.log(data);
+  const submitForm = async (data: any) => {
+    try {
+      setLoader(true);
+      const response = await fetch('/api', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result.message);
+      } else {
+        console.error('Failed to send email');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoader(false);
+    }
   };
   return (
     <form
@@ -18,7 +40,9 @@ function ContactForm({}: Props) {
     >
       <h2 className="text-xl">Hey you can send me email right here!</h2>
       <div className="formField">
-        <label htmlFor="name">name</label>
+        <label className="min-w-[100px]" htmlFor="name">
+          name
+        </label>
         <input
           className="input"
           type="text"
@@ -28,7 +52,9 @@ function ContactForm({}: Props) {
         />
       </div>
       <div className="formField">
-        <label htmlFor="surname">Surname</label>
+        <label className="min-w-[100px]" htmlFor="surname">
+          Surname
+        </label>
         <input
           className="input"
           type="text"
@@ -37,7 +63,9 @@ function ContactForm({}: Props) {
         />
       </div>
       <div className="formField">
-        <label htmlFor="phone">Phone number</label>
+        <label className="min-w-[100px]" htmlFor="phone">
+          Phone number
+        </label>
         <input
           className="input"
           type="text"
@@ -46,14 +74,29 @@ function ContactForm({}: Props) {
         />
       </div>
       <div className="formField">
-        <label htmlFor="comment">Write your request</label>
+        <label className="min-w-[100px]" htmlFor="email">
+          Email
+        </label>
+        <input
+          className="input"
+          type="text"
+          id="email"
+          {...register('email', { required: true })}
+        />
+      </div>
+      <div className="formField">
+        <label className="min-w-[100px]" htmlFor="comment">
+          Write your request
+        </label>
         <textarea
           className="input"
           id="comment"
           {...register('comment', { required: true })}
         />
       </div>
-      <Button size="medium">Send</Button>
+      <Button size="medium">
+        {loader ? <Loader width="24px" height="24px" /> : 'Send'}
+      </Button>
     </form>
   );
 }
