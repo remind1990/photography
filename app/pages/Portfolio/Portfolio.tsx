@@ -1,6 +1,15 @@
 import Carousel from '@/components/Carousel';
 
-const images = ['/photo1.jpg', '/photo2.jpg', '/photo3.jpg'];
+const images = [
+  '/photo1.jpg',
+  '/photo2.jpg',
+  '/photo3.jpg',
+  '/photo4.jpg',
+  '/photo5.jpg',
+  '/photo6.jpg',
+  '/photo7.jpg',
+  '/photo8.jpg',
+];
 
 const Portfolio = () => {
   return (

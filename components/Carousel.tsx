@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState } from 'react';
 import Image from 'next/image';
 
@@ -36,18 +35,25 @@ const Carousel = ({ images }: Props) => {
           const isNext = index === (currentIndex + 1) % images.length;
           const isPrev =
             index === (currentIndex - 1 + images.length) % images.length;
+          const zIndex = isCurrent ? 30 : isNext || isPrev ? 20 : 10;
+          const scale = isCurrent ? 1.1 : 0.95;
+          const left = isCurrent
+            ? '50%'
+            : isNext
+            ? '70%'
+            : isPrev
+            ? '30%'
+            : '50%';
 
           return (
             <div
               key={index}
-              className={`absolute transition-all duration-500 ${
-                isCurrent
-                  ? 'z-20 transform scale-110 opacity-100'
-                  : 'z-10 transform scale-95 opacity-70'
-              }`}
+              className={`absolute transition-all duration-500`}
               style={{
-                left: isCurrent ? '50%' : isNext ? '75%' : '25%',
-                transform: 'translateX(-50%)',
+                zIndex: zIndex,
+                transform: `translateX(-50%) scale(${scale})`,
+                left: left,
+                opacity: isCurrent || isNext || isPrev ? 1 : 0,
               }}
             >
               <div className="relative w-[230px] h-[450px] bg-white rounded-[30px] shadow-lg overflow-hidden flex items-center justify-center border-[12px] border-[#3b3b3d]">
