@@ -26,7 +26,7 @@ const Carousel = ({ images }: Props) => {
     <div className="relative flex items-center justify-center w-full h-96">
       <button
         onClick={handlePrevClick}
-        className="absolute left-0  btn-carousel"
+        className="absolute left-0 btn-carousel"
       >
         &lt;
       </button>
@@ -41,22 +41,27 @@ const Carousel = ({ images }: Props) => {
             <div
               key={index}
               className={`absolute transition-all duration-500 ${
-                isCurrent ? 'z-20 transform scale-100 opacity-100' : ''
-              } ${
-                isNext || isPrev ? 'z-10 transform scale-75 opacity-50' : ''
+                isCurrent
+                  ? 'z-20 transform scale-110 opacity-100'
+                  : 'z-10 transform scale-95 opacity-70'
               }`}
               style={{
                 left: isCurrent ? '50%' : isNext ? '75%' : '25%',
                 transform: 'translateX(-50%)',
               }}
             >
-              <Image
-                src={src}
-                alt={`Carousel image ${index + 1}`}
-                width={isCurrent ? 400 : 300}
-                height={isCurrent ? 300 : 200}
-                className="rounded-lg shadow-lg"
-              />
+              <div className="relative w-[230px] h-[450px] bg-white rounded-[30px] shadow-lg overflow-hidden flex items-center justify-center border-[12px] border-[#3b3b3d]">
+                <div className="absolute z-10 top-2 w-[60px] h-[15px] bg-stone-800 rounded-lg" />
+                <div className="absolute z-10 bottom-1 w-[75px] h-[5px] bg-stone-800 rounded-lg" />
+                <div className="absolute inset-0">
+                  <Image
+                    src={src}
+                    alt={`Carousel image ${index + 1}`}
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+              </div>
             </div>
           );
         })}
