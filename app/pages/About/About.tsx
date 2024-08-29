@@ -46,7 +46,7 @@ const About = (props: Props) => {
         </div>
         <div className="max-w-[50%]">
           <Image src="/photo8.jpg" alt="avatar" width={500} height={500} />
-          <blockquote className="font-serif italic text-xl text-stone-800 my-6 py-4 px-6 border-l-4 border-gray-300">
+          <blockquote className="font-serif italic text-xl text-stone-800 my-6 py-4 px-6 border-l-4 border-gray-300 max-w-[500px]">
             "The whole point of taking pictures is so that you don’t have to
             explain things with words."
             <cite className="block mt-2 text-right text-stone-600">

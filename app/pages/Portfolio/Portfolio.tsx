@@ -22,6 +22,12 @@ const Portfolio = () => {
       <div className="min-h-[500px]  bg-black z-1">
         <Carousel images={images} />
       </div>
+      <div className="min-h-[800px] w-full bg-[url('/bg5.jpg')] bg-cover relative">
+        <div className="absolute inset-0 bg-black opacity-30"></div>
+      </div>
+      <div className="min-h-[800px] w-full bg-[url('/bg10.jpg')] bg-cover relative">
+        <div className="absolute inset-0 bg-black opacity-30"></div>
+      </div>
     </section>
   );
 };

@@ -84,16 +84,15 @@ const Main = () => {
         <div className="card">
           <p className="text-2xl">Individual photosession</p>
           <p className="text-xl m-w-[100%] max-h-[70%] overflow-auto">
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose (injected humour
-            and the like).
+            You might be wondering, "Why hire a photographer when I can just
+            take some selfies and give it to AI?" It's true—I'm not an AI that
+            can churn out a hundred photos in seconds. But that's exactly what
+            makes me unique. I don’t rely on algorithms; I rely on my style and
+            vision, which are shaped by you. When we work together, I take the
+            time to understand your wishes and see who you truly are. While I
+            may not produce hundreds of photos in an instant, I can guarantee
+            that the memories and emotions we capture will be
+            one-of-a-kind—something no AI could ever replicate.
           </p>
           <Button
             variant="primary"
@@ -101,22 +100,17 @@ const Main = () => {
               router.push('/contacts');
             }}
           >
-            Get details!
+            Book a spot
           </Button>
         </div>
         <div className="card">
           <p className="text-2xl">Family photosession</p>
           <p className="text-xl m-w-[100%]  max-h-[70%] overflow-auto">
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose (injected humour
-            and the like).
+            What’s most important about every family? It’s the love that binds
+            you together, the unique connections you share that make your family
+            like no other. My job? It’s to capture that bond, to make sure
+            anyone who sees the images can feel the warmth and love that define
+            your family
           </p>
           <Button
             variant="primary"
@@ -124,22 +118,17 @@ const Main = () => {
               router.push('/contacts');
             }}
           >
-            Get details!
+            Book a spot
           </Button>
         </div>
         <div className="card">
           <p className="text-2xl">Love story</p>
           <p className="text-xl max-w-[100%] max-h-[70%] overflow-auto">
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose (injected humour
-            and the like).
+            This one’s my favorite! It’s for both of you, and my job is to
+            capture the essence of what makes you two unique. Show me what you
+            share—those little moments, the smiles, the love—and I’ll make sure
+            to capture it all. No artificial flavors here, just the natural,
+            beautiful connection that you already have.
           </p>
           <Button
             variant="primary"
@@ -147,7 +136,7 @@ const Main = () => {
               router.push('/contacts');
             }}
           >
-            Get details!
+            Book a spot
           </Button>
         </div>
       </div>
