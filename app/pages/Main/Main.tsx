@@ -8,8 +8,12 @@ const Main = () => {
   const router = useRouter();
   return (
     <section className=" w-full  flex flex-col">
-      <div className="w-full flex min-h-[700px] items-center justify-center bg-[url('/bg1.jpg')] bg-center bg-cover text-stone-100">
-        <h1 className="text-4xl">Platform for creative people</h1>
+      <div className="w-full flex min-h-[700px] items-center flex-col justify-center bg-[url('/bg1.jpg')] bg-center bg-cover text-stone-100">
+        <h1 className="text-6xl">Platform for creative people</h1>
+        <blockquote className="italic text-2xl text-stone-100 my-6 py-4 px-6 max-w-[400px]">
+          “The most beautiful thing you can be is yourself”
+          <cite className="block mt-2 text-right text-stone-100">— Barbie</cite>
+        </blockquote>
       </div>
       <div className="w-full flex  main-bg p-11 pl-[150px] gap-11">
         <Image src="/photo1.jpg" alt="photo1" width={500} height={600} />
@@ -83,7 +87,7 @@ const Main = () => {
       <div className="flex w-full min-h-[300px] p-11  gap-[30px] justify-center items-center">
         <div className="card">
           <p className="text-2xl">Individual photosession</p>
-          <p className="text-xl m-w-[100%] max-h-[70%] overflow-auto">
+          <p className="text-xl m-w-[100%] h-[70%] overflow-auto">
             You might be wondering, "Why hire a photographer when I can just
             take some selfies and give it to AI?" It's true—I'm not an AI that
             can churn out a hundred photos in seconds. But that's exactly what
@@ -105,7 +109,7 @@ const Main = () => {
         </div>
         <div className="card">
           <p className="text-2xl">Family photosession</p>
-          <p className="text-xl m-w-[100%]  max-h-[70%] overflow-auto">
+          <p className="text-xl m-w-[100%]  h-[70%] overflow-auto">
             What’s most important about every family? It’s the love that binds
             you together, the unique connections you share that make your family
             like no other. My job? It’s to capture that bond, to make sure
@@ -123,7 +127,7 @@ const Main = () => {
         </div>
         <div className="card">
           <p className="text-2xl">Love story</p>
-          <p className="text-xl max-w-[100%] max-h-[70%] overflow-auto">
+          <p className="text-xl max-w-[100%] h-[70%] overflow-auto">
             This one’s my favorite! It’s for both of you, and my job is to
             capture the essence of what makes you two unique. Show me what you
             share—those little moments, the smiles, the love—and I’ll make sure

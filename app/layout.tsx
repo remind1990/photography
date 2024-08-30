@@ -3,6 +3,8 @@ import { Inter, Montserrat } from 'next/font/google';
 import './globals.css';
 import NavBar from '@/components/NavBar';
 import Footer from '@/components/Footer';
+import { getLocale, getMessages } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
 
 const inter = Montserrat({ subsets: ['latin'] });
 
@@ -11,17 +13,21 @@ export const metadata: Metadata = {
   description: 'made to enjoy',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={inter.className}>
-        <NavBar />
-        {children}
-        <Footer />
+        <NextIntlClientProvider messages={messages} locale={locale}>
+          <NavBar />
+          {children}
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   );
