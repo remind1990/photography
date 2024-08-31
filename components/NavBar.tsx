@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import LocaleSwitcher from './LocaleSwitcher';
 
 type Props = {};
 
@@ -45,6 +46,7 @@ const NavBar: React.FC<Props> = () => {
             ))}
           </ul>
         </nav>
+        <LocaleSwitcher />
       </div>
     </header>
   );

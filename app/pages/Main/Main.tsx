@@ -3,13 +3,15 @@ import React from 'react';
 import Image from 'next/image';
 import Button from '@/ui/Button';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const Main = () => {
+  const t = useTranslations('HomePage');
   const router = useRouter();
   return (
     <section className=" w-full  flex flex-col">
       <div className="w-full flex min-h-[700px] items-center flex-col justify-center bg-[url('/bg1.jpg')] bg-center bg-cover text-stone-100">
-        <h1 className="text-6xl">Platform for creative people</h1>
+        <h1 className="text-6xl">{t('title')}</h1>
         <blockquote className="italic text-2xl text-stone-100 my-6 py-4 px-6 max-w-[400px]">
           “The most beautiful thing you can be is yourself”
           <cite className="block mt-2 text-right text-stone-100">— Barbie</cite>
