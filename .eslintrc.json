@@ -5,7 +5,8 @@
     "prettier/prettier": [
       "error",
       {
-        "endOfLine": "auto"
+        "endOfLine": "auto",
+        "trailingComma": "all"
       }
     ],
     "react/react-in-jsx-scope": "off"

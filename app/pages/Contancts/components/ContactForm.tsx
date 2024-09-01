@@ -3,10 +3,12 @@ import Loader from '@/components/Loader';
 import Button from '@/ui/Button';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 type Props = {};
 
 function ContactForm({}: Props) {
+  const t = useTranslations('Contacts');
   const { register, handleSubmit } = useForm();
   const [loader, setLoader] = useState<boolean>(false);
 
@@ -33,15 +35,16 @@ function ContactForm({}: Props) {
       setLoader(false);
     }
   };
+
   return (
     <form
       className="flex flex-col gap-6 w-[50%] border border-stone-800 p-8 text-stone-800 rounded-md"
       onSubmit={handleSubmit(submitForm)}
     >
-      <h2 className="text-xl">Hey you can send me email right here!</h2>
+      <h2 className="text-xl">{t('contact_form_title')}</h2>
       <div className="formField">
         <label className="min-w-[100px]" htmlFor="name">
-          name
+          {t('form.name_label')}
         </label>
         <input
           className="input"
@@ -53,7 +56,7 @@ function ContactForm({}: Props) {
       </div>
       <div className="formField">
         <label className="min-w-[100px]" htmlFor="surname">
-          Surname
+          {t('form.surname_label')}
         </label>
         <input
           className="input"
@@ -64,7 +67,7 @@ function ContactForm({}: Props) {
       </div>
       <div className="formField">
         <label className="min-w-[100px]" htmlFor="phone">
-          Phone number
+          {t('form.phone_label')}
         </label>
         <input
           className="input"
@@ -75,7 +78,7 @@ function ContactForm({}: Props) {
       </div>
       <div className="formField">
         <label className="min-w-[100px]" htmlFor="email">
-          Email
+          {t('form.email_label')}
         </label>
         <input
           className="input"
@@ -86,7 +89,7 @@ function ContactForm({}: Props) {
       </div>
       <div className="formField">
         <label className="min-w-[100px]" htmlFor="comment">
-          Write your request
+          {t('form.comment_label')}
         </label>
         <textarea
           className="input"
@@ -95,7 +98,11 @@ function ContactForm({}: Props) {
         />
       </div>
       <Button size="medium">
-        {loader ? <Loader width="24px" height="24px" /> : 'Send'}
+        {loader ? (
+          <Loader width="24px" height="24px" />
+        ) : (
+          t('form.submit_button')
+        )}
       </Button>
     </form>
   );
