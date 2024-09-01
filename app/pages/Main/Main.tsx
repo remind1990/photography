@@ -59,7 +59,7 @@ const Main = () => {
       </div>
       <div className="flex w-full min-h-[300px] p-11  gap-[30px] justify-center items-center">
         <div className="card">
-          <p className="text-2xl">Individual photosession</p>
+          <p className="text-2xl">{t('individual_label')}</p>
           <p className="text-xl m-w-[100%] h-[70%] overflow-auto">
             {t('individual')}
           </p>
@@ -73,7 +73,7 @@ const Main = () => {
           </Button>
         </div>
         <div className="card">
-          <p className="text-2xl">Family photosession</p>
+          <p className="text-2xl">{t('family_label')}</p>
           <p className="text-xl m-w-[100%]  h-[70%] overflow-auto">
             {t('family')}
           </p>
@@ -87,7 +87,7 @@ const Main = () => {
           </Button>
         </div>
         <div className="card">
-          <p className="text-2xl">Love story</p>
+          <p className="text-2xl">{t('love_story_label')}</p>
           <p className="text-xl max-w-[100%] h-[70%] overflow-auto">
             {t('love_story')}
           </p>
