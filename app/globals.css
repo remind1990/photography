@@ -63,13 +63,13 @@
 }
 
 .main-post-text {
-  @apply xl:text-xl  text-lg w-[90%] flex-grow flex-shrink;
+  @apply xl:text-xl text-base  w-full md:w-[90%] flex-grow flex-shrink;
 }
 .main-post-text2 {
   @apply xl:text-xl  text-base  md:text-lg  w-full md:w-[50%] flex-grow flex-shrink;
 }
 .global-text-sizes {
-  @apply xl:text-xl  text-lg;
+  @apply xl:text-xl   text-base md:text-lg;
 }
 
 .main-post-container {

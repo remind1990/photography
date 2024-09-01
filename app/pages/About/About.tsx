@@ -9,17 +9,17 @@ const About = (props: Props) => {
 
   return (
     <section className="w-full flex flex-col">
-      <div className="w-full flex min-h-[700px] items-center justify-center bg-[url('/bg2.jpg')] bg-center bg-cover text-stone-100 relative">
+      <div className="w-full flex md:min-h-[700px]  sm:min-h-[400px] min-h-[300px] items-center justify-center bg-[url('/bg-about.jpg')] bg-center bg-cover text-stone-100 relative">
         <h1 className="text-4xl">{t('section_title')}</h1>
         <Image
-          className="absolute bottom-[-200px]"
+          className="absolute bottom-[-100px] md:bottom-[-200px] w-[200px] h-[200px] md:w-[500px] md:h-[500px]"
           src="/photo6.jpg"
           alt="avatar"
           width={500}
           height={500}
         />
       </div>
-      <div className="w-full text-center main-bg p-11 pt-[220px] gap-11">
+      <div className="w-full text-center main-bg p-11 md:pt-[220px] pt-[100px] gap-11">
         <h1 className="text-4xl">{t('welcome_message')}</h1>
       </div>
       <div className="w-full flex flex-col md:flex-row main-bg p-2 md:p-11 gap-11">
