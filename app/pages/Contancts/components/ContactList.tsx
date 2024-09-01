@@ -1,21 +1,14 @@
-// components/ContactList.tsx
 'use client';
 import Socials from '@/components/Socials';
 import React from 'react';
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTwitter,
-  FaLinkedin,
-  FaEnvelope,
-} from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
 
 const ContactList = () => {
+  const t = useTranslations('Contacts');
+
   return (
     <div className="text-stone-800 w-full flex flex-col gap-8 items-start">
-      <h2 className="text-xl">
-        Easy way to find me! Follow me by one of my socials!
-      </h2>
+      <h2 className="text-xl">{t('contact_list_title')}</h2>
       <Socials />
     </div>
   );

@@ -24,5 +24,42 @@
     "about": "About",
     "portfolio": "Portfolio",
     "contacts": "Contacts"
+  },
+  "About": {
+    "section_title": "About me",
+    "welcome_message": "Let's become friends!",
+    "introduction": "Hello, I'm Olha Dubenko, and I am truly honoured to welcome you to my photography journey. Photography has always been more than just a profession for me. it is a deep-seated passion that has grown over the years. Living in Canada, where we cherish diversity and individuality, I have been inspired to use my lens to celebrate the unique beauty found in everyone, particularly in women. My mission as a photographer is to help women see themselves in a light they may not have before—to see themselves as the beautiful, strong, and extraordinary individuals they truly are. I believe that every woman deserves to feel confident, valued, and empowered. Through my photography, I strive to capture not just an image, but the essence of who you are, reflecting your inner beauty and strength. It is my privilege to work closely with each of my clients, creating a safe and comfortable environment where you can express yourself freely. Whether it’s a portrait session, a celebration of a milestone, or simply a moment to honour your own journey, I am here to ensure that the experience is as enjoyable as the photos are stunning. Thank you for considering me as a part of your personal journey. I look forward to the opportunity to work together and to capture the beauty that is uniquely yours.",
+    "quote": "The whole point of taking pictures is so that you don’t have to explain things with words.",
+    "quote_author": "— Lisa Kristine"
+  },
+  "Footer": {
+    "contact_title": "Contact",
+    "email": "Email: dubenko.o.m@gmail.com",
+    "follow_me": "Follow Me",
+    "quick_links": "Quick Links",
+    "portfolio": "Portfolio",
+    "services": "Services",
+    "contacts": "Contact",
+    "copyright": "&copy; {year} Olha Dubenko. All rights reserved.",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service"
+  },
+  "Contacts": {
+    "section_title": "Let's become friends!",
+    "quote": "“Don’t wait for the perfect moment. Take the moment and make it perfect.”",
+    "quote_author": "— Zoey Sayward",
+    "contact_list_title": "Easy way to find me! Follow me by one of my socials!",
+    "contact_form_title": "Hey, you can send me an email right here!",
+    "form": {
+      "name_label": "Name",
+      "surname_label": "Surname",
+      "phone_label": "Phone number",
+      "email_label": "Email",
+      "comment_label": "Write your request",
+      "submit_button": "Send"
+    }
+  },
+  "Portfolio": {
+    "made_by": "Made By Olha Dubenko"
   }
 }
