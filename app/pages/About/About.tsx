@@ -22,13 +22,13 @@ const About = (props: Props) => {
       <div className="w-full text-center main-bg p-11 pt-[220px] gap-11">
         <h1 className="text-4xl">{t('welcome_message')}</h1>
       </div>
-      <div className="w-full flex main-bg p-11 gap-11">
-        <div className="max-w-[50%]">
-          <blockquote className="font-serif italic text-xl text-stone-800 my-6 py-4 px-6">
+      <div className="w-full flex flex-col md:flex-row main-bg p-2 md:p-11 gap-11">
+        <div className="w-full md:max-w-[50%]">
+          <blockquote className="font-serif italic text-base md:text-xl text-stone-800 mb-6  px-6">
             {t('introduction')}
           </blockquote>
         </div>
-        <div className="max-w-[50%]">
+        <div className="w-full md:max-w-[50%]">
           <Image src="/photo8.jpg" alt="avatar" width={500} height={500} />
           <blockquote className="font-serif italic text-xl text-stone-800 my-6 py-4 px-6 border-l-4 border-gray-300 max-w-[500px]">
             {t('quote')}

@@ -38,7 +38,7 @@ function ContactForm({}: Props) {
 
   return (
     <form
-      className="flex flex-col gap-6 w-[50%] border border-stone-800 p-8 text-stone-800 rounded-md"
+      className="flex flex-col gap-6  w-full md:w-[50%] border border-stone-800 p-8 text-stone-800 rounded-md"
       onSubmit={handleSubmit(submitForm)}
     >
       <h2 className="text-xl">{t('contact_form_title')}</h2>

@@ -7,7 +7,7 @@ function Footer() {
   const t = useTranslations('Footer');
 
   return (
-    <div className="min-h-[500px] bg-black text-white px-40 py-20 flex gap-20 align-top">
+    <div className="min-h-[500px] bg-black text-white xl:px-40 px-10 py-20 flex flex-col md:flex-row md:gap-10 gap-5 align-top">
       <div className="mb-8">
         <h2 className="text-lg font-semibold">{t('contact_title')}</h2>
         <p>{t('email')}</p>
@@ -41,6 +41,7 @@ function Footer() {
           dangerouslySetInnerHTML={{
             __html: t('copyright', { year: new Date().getFullYear() }),
           }}
+          className="w-[200px] md:w-[100px]"
         ></p>
         <a href="/privacy-policy" className="hover:underline">
           {t('privacy_policy')}
