@@ -49,12 +49,11 @@ const Carousel = ({ images }: Props) => {
   return (
     <>
       <div className="relative flex items-center justify-center w-full h-96">
-        <button
-          onClick={handlePrevClick}
-          className="absolute left-0 btn-carousel"
-        >
-          &lt;
-        </button>
+        <div className="hidden sm:flex absolute left-0">
+          <button onClick={handlePrevClick} className="btn-carousel">
+            &lt;
+          </button>
+        </div>
         <div className="relative flex items-center justify-center w-full">
           {images.map((src, index) => {
             const isCurrent = index === currentIndex;
@@ -101,13 +100,23 @@ const Carousel = ({ images }: Props) => {
             );
           })}
         </div>
-        <button
-          onClick={handleNextClick}
-          className="absolute right-0 btn-carousel"
-        >
+        <div className="hidden sm:flex absolute right-0">
+          <button onClick={handleNextClick} className="btn-carousel">
+            &gt;
+          </button>
+        </div>
+      </div>
+
+      {/* Buttons displayed below the carousel on mobile */}
+      <div className="flex justify-between mt-20  mx-auto w-[50%] sm:hidden">
+        <button onClick={handlePrevClick} className="btn-carousel">
+          &lt;
+        </button>
+        <button onClick={handleNextClick} className="btn-carousel">
           &gt;
         </button>
       </div>
+
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div className="relative w-[80vw] h-[80vh]">
           <Image

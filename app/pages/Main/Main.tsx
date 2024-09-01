@@ -11,7 +11,7 @@ const Main = () => {
   return (
     <section className=" w-full  flex flex-col">
       <div className="w-full flex min-h-[700px] items-center flex-col justify-center bg-[url('/bg1.jpg')] bg-center bg-cover text-stone-100">
-        <h1 className="text-6xl">{t('title')}</h1>
+        <h1 className="xl:text-6xl  text-4xl">{t('title')}</h1>
         <blockquote className="italic text-2xl text-stone-100 my-6 py-4 px-6 max-w-[400px]">
           {t('title_quote')}
           <cite className="block mt-2 text-right text-stone-100">
@@ -19,13 +19,21 @@ const Main = () => {
           </cite>
         </blockquote>
       </div>
-      <div className="w-full flex  main-bg p-11 pl-[150px] gap-11">
-        <Image src="/photo1.jpg" alt="photo1" width={500} height={600} />
-        <div className="w-full h-[625px] flex flex-col">
-          <p className="text-xl w-[90%]"> {t('photo1_text')}</p>
+      <div className="w-full flex flex-col sm:flex-col md:flex-row  main-bg p-11 pl-1 lg:pl-[50px] xl:pl-[150px] md:pr-[20px] sm:pr-[10px]  pr-0 gap-11">
+        <Image
+          className="flex-shrink-0"
+          src="/photo1.jpg"
+          alt="photo1"
+          width={500}
+          height={600}
+        />
+        <div className="w-full h-[625px] flex flex-col gap:5">
+          <p className="main-post-text md:max-h-[50%]  lg:max-h-[70%] overflow-auto">
+            {t('photo1_text')}
+          </p>
 
           <Image
-            className="ml-auto mt-auto"
+            className="ml-0  sm:ml-auto mt-auto flex-shrink-0"
             src="/photo2.jpg"
             alt="photo2"
             width={300}
@@ -33,9 +41,9 @@ const Main = () => {
           />
         </div>
       </div>
-      <div className="flex w-full min-h-[300px] p-11">
-        <p className="text-xl w-[50%]">{t('photo2_text')}</p>
-        <div className="w-[50%] ">
+      <div className="main-post-container p-11">
+        <p className="main-post-text2">{t('photo2_text')}</p>
+        <div className="w-full md:w-[50%]">
           <Image
             className="ml-auto mt-auto"
             src="/photo3.jpg"
@@ -45,8 +53,8 @@ const Main = () => {
           />
         </div>
       </div>
-      <div className="flex w-full min-h-[300px] p-11 main-bg">
-        <div className="w-[50%] ">
+      <div className="main-post-container p-11 main-bg">
+        <div className="w-full md:w-[50%] ">
           <Image
             className="mr-auto"
             src="/photo4.jpg"
@@ -55,12 +63,12 @@ const Main = () => {
             height={700}
           />
         </div>
-        <p className="text-xl w-[50%]">{t('photo3_text')}</p>
+        <p className="main-post-text2">{t('photo3_text')}</p>
       </div>
-      <div className="flex w-full min-h-[300px] p-11  gap-[30px] justify-center items-center">
+      <div className="main-post-container xl:p-11 md:p-4 lg:p-6  xl:gap-[30px]   md:gap-2 justify-center items-center">
         <div className="card">
-          <p className="text-2xl">{t('individual_label')}</p>
-          <p className="text-xl m-w-[100%] h-[70%] overflow-auto">
+          <p className="lg:text-2xl md:text-xl">{t('individual_label')}</p>
+          <p className="global-text-sizes m-w-[100%] h-[70%] overflow-auto">
             {t('individual')}
           </p>
           <Button
@@ -73,8 +81,8 @@ const Main = () => {
           </Button>
         </div>
         <div className="card">
-          <p className="text-2xl">{t('family_label')}</p>
-          <p className="text-xl m-w-[100%]  h-[70%] overflow-auto">
+          <p className="lg:text-2xl md:text-xl">{t('family_label')}</p>
+          <p className="global-text-sizes m-w-[100%]  h-[70%] overflow-auto">
             {t('family')}
           </p>
           <Button
@@ -87,8 +95,8 @@ const Main = () => {
           </Button>
         </div>
         <div className="card">
-          <p className="text-2xl">{t('love_story_label')}</p>
-          <p className="text-xl max-w-[100%] h-[70%] overflow-auto">
+          <p className="lg:text-2xl md:text-xl">{t('love_story_label')}</p>
+          <p className="global-text-sizes max-w-[100%] h-[70%] overflow-auto">
             {t('love_story')}
           </p>
           <Button

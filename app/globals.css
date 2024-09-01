@@ -16,15 +16,22 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 .main-bg {
   @apply bg-gradient-to-r from-orange-50 to-orange-100;
 }
 
 .card {
-  @apply flex flex-col gap-10 items-center px-[40px]  pt-[20px] w-[400px] h-[500px] bg-custom-gradient p-4 shadow-lg  rounded-lg hover:outline hover:outline-2 hover:outline-orange-100 cursor-pointer;
+  @apply flex flex-col xl:gap-10 md:gap-5 items-center xl:px-[40px]  md:px-[10px] pt-[20px] xl:w-[400px] md:w-1/3 h-[500px] bg-custom-gradient p-4 shadow-lg  rounded-lg hover:outline hover:outline-2 hover:outline-orange-100 cursor-pointer;
 }
-
+.card-text {
+  @apply xl:text-xl  md:text-sm;
+}
 .btn-primary {
   @apply bg-[#fad29e] text-stone-800 hover:bg-[#a99174]  rounded-md transition-colors duration-300;
 }
@@ -52,9 +59,22 @@
   @apply min-w-[325px] rounded-md outline-indigo-300;
 }
 .formField {
-  @apply flex text-lg text-stone-800 gap-4 w-full justify-between;
+  @apply flex flex-col md:flex-row text-lg text-stone-800 gap-4 w-full justify-between;
 }
 
+.main-post-text {
+  @apply xl:text-xl  text-lg w-[90%] flex-grow flex-shrink;
+}
+.main-post-text2 {
+  @apply xl:text-xl  text-base  md:text-lg  w-full md:w-[50%] flex-grow flex-shrink;
+}
+.global-text-sizes {
+  @apply xl:text-xl  text-lg;
+}
+
+.main-post-container {
+  @apply w-full flex flex-col sm:flex-col md:flex-row  min-h-[300px] gap-11;
+}
 .faded-text {
   font-weight: bold;
   background: linear-gradient(to right, white 60%, transparent 100%);
