@@ -10,9 +10,9 @@ const Main = () => {
   const router = useRouter();
   return (
     <section className=" w-full  flex flex-col">
-      <div className="w-full flex min-h-[700px] items-center flex-col justify-center bg-[url('/bg1.jpg')] bg-center bg-cover text-stone-100">
-        <h1 className="xl:text-6xl  text-4xl">{t('title')}</h1>
-        <blockquote className="italic text-2xl text-stone-100 my-6 py-4 px-6 max-w-[400px]">
+      <div className="w-full flex min-h-[700px] p-2 items-center flex-col justify-center bg-[url('/bg1.jpg')] bg-center bg-cover text-stone-100">
+        <h1 className="xl:text-6xl  text-3xl text-center">{t('title')}</h1>
+        <blockquote className="italic text-xl sm:text-2xl text-stone-100 my-0 sm:my-2 py-4 px-6 max-w-[400px]">
           {t('title_quote')}
           <cite className="block mt-2 text-right text-stone-100">
             — {t('title_quote_author')}
@@ -27,11 +27,10 @@ const Main = () => {
           width={500}
           height={600}
         />
-        <div className="w-full h-[625px] flex flex-col gap:5">
+        <div className="w-full h-[625px] flex flex-col gap-5">
           <p className="main-post-text md:max-h-[50%]  lg:max-h-[70%] overflow-auto">
             {t('photo1_text')}
           </p>
-
           <Image
             className="ml-0  sm:ml-auto mt-auto flex-shrink-0"
             src="/photo2.jpg"
@@ -41,7 +40,7 @@ const Main = () => {
           />
         </div>
       </div>
-      <div className="main-post-container p-11">
+      <div className="main-post-container p-2 md:p-11">
         <p className="main-post-text2">{t('photo2_text')}</p>
         <div className="w-full md:w-[50%]">
           <Image
@@ -53,7 +52,7 @@ const Main = () => {
           />
         </div>
       </div>
-      <div className="main-post-container p-11 main-bg">
+      <div className="main-post-container p-2 md:p-11 main-bg">
         <div className="w-full md:w-[50%] ">
           <Image
             className="mr-auto"
@@ -65,9 +64,9 @@ const Main = () => {
         </div>
         <p className="main-post-text2">{t('photo3_text')}</p>
       </div>
-      <div className="main-post-container xl:p-11 md:p-4 lg:p-6  xl:gap-[30px]   md:gap-2 justify-center items-center">
+      <div className="main-post-container xl:p-11 md:p-4 lg:p-6  xl:gap-[30px] my-5 md:mt-0   md:gap-2 justify-center items-center">
         <div className="card">
-          <p className="lg:text-2xl md:text-xl">{t('individual_label')}</p>
+          <p className="text-2xl">{t('individual_label')}</p>
           <p className="global-text-sizes m-w-[100%] h-[70%] overflow-auto">
             {t('individual')}
           </p>
@@ -81,7 +80,7 @@ const Main = () => {
           </Button>
         </div>
         <div className="card">
-          <p className="lg:text-2xl md:text-xl">{t('family_label')}</p>
+          <p className="lg:text-2xl">{t('family_label')}</p>
           <p className="global-text-sizes m-w-[100%]  h-[70%] overflow-auto">
             {t('family')}
           </p>
@@ -95,7 +94,7 @@ const Main = () => {
           </Button>
         </div>
         <div className="card">
-          <p className="lg:text-2xl md:text-xl">{t('love_story_label')}</p>
+          <p className="text-2xl">{t('love_story_label')}</p>
           <p className="global-text-sizes max-w-[100%] h-[70%] overflow-auto">
             {t('love_story')}
           </p>

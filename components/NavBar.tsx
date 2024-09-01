@@ -42,15 +42,28 @@ const NavBar: React.FC<Props> = () => {
             className="ml-4 flex flex-col justify-between h-6 w-8 md:hidden focus:outline-none"
             onClick={toggleMenu}
           >
-            {/* Burger Menu Icon */}
             <span className="block w-full h-[1px] bg-black"></span>
             <span className="block w-full h-[1px] bg-black"></span>
             <span className="block w-full h-[1px] bg-black"></span>
           </button>
         </div>
+        <nav className="hidden md:flex">
+          <ul className="flex space-x-4">
+            {navItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  href={item.path}
+                  className={`${
+                    pathname === item.path ? 'text-stone-900' : 'text-stone-500'
+                  } hover:text-stone-700`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
-
-      {/* Mobile Menu Dropdown */}
       <nav
         className={`${
           isMenuOpen ? 'block' : 'hidden'
@@ -73,23 +86,6 @@ const NavBar: React.FC<Props> = () => {
         </ul>
       </nav>
 
-      {/* Regular Desktop Menu */}
-      <nav className="hidden md:flex">
-        <ul className="flex space-x-4">
-          {navItems.map((item) => (
-            <li key={item.path}>
-              <Link
-                href={item.path}
-                className={`${
-                  pathname === item.path ? 'text-stone-900' : 'text-stone-500'
-                } hover:text-stone-700`}
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
       <LocaleSwitcher />
     </header>
   );
