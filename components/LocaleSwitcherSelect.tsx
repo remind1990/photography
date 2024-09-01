@@ -35,7 +35,7 @@ export default function LocaleSwitcherSelect({
           id="locale-select"
           defaultValue={defaultValue}
           onChange={onChange}
-          className={`appearance-none w-full bg-transparent p-2 pl-10 pr-8 cursor-pointer rounded-md text-base text-slate-900 focus:outline-none ${
+          className={`appearance-none w-full bg-transparent p-2 min-w-[120px]  max-w-fit pr-8 cursor-pointer rounded-md text-base text-slate-900 focus:outline-none ${
             isPending ? 'pointer-events-none opacity-60' : ''
           }`}
           style={{
@@ -48,13 +48,12 @@ export default function LocaleSwitcherSelect({
               value={item.value}
               className="flex items-center"
             >
-              {item.label}
+              <span className="block sm:hidden">{item.flag}</span>
+              <span className="hidden sm:block">{item.label}</span>
             </option>
           ))}
         </select>
-        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
-          <span>{items.find((item) => item.value === defaultValue)?.flag}</span>
-        </div>
+
         <FaChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none text-slate-600" />
       </div>
     </div>
