@@ -1,0 +1,65 @@
+{
+  "HomePage": {
+    "title": "Platform for creative people!",
+    "title_quote": "“The most beautiful thing you can be is yourself”",
+    "title_quote_author": "Barbie",
+    "photo1_text": "As a photographer, I capture more than just moments—I capture the essence of style and the beauty that lies within it. My lens is drawn to the elegance and grace that fashion brings to life. I see each frame as an opportunity to blend artistry with the sophistication of fashion, creating images that speak to both the heart and the eye. In my work, style isn’t just an accessory; it’s the very soul of the story I tell. Welcome to a world where photography and fashion merge to create timeless beauty.",
+    "photo2_text": "In every photograph, I strive to capture more than just an image—I aim to convey the essence of style, the allure of fashion, and the beauty within each individual. My work is about more than just posing and lighting; it's about creating a narrative that speaks to the viewer, showcasing the elegance and strength of my subjects. I work closely with each model, bringing out their unique personality and style to create images that are not only visually striking but also deeply personal. My passion lies in transforming fashion into art, making each shoot a celebration of beauty, confidence, and creativity. Let’s create something extraordinary together.",
+    "photo3_text": "In my work, I believe in pushing boundaries and exploring the limitless potential of creativity. Each shoot is an opportunity to create something truly unique, to blend imagination with reality, and to craft a style that is both distinct and memorable. I strive to bring out the extraordinary in every frame, allowing creativity to flow freely while ensuring that the final result is nothing short of exceptional. Let’s break the mold, try something new, and create a vision that stands out—one that reflects not only beauty but also the boldness of individuality.",
+    "individual": "You might be wondering, 'Why hire a photographer when I can just take some selfies and give it to AI?' It's true—I'm not an AI that can churn out a hundred photos in seconds. But that's exactly what makes me unique. I don’t rely on algorithms; I rely on my style and vision, which are shaped by you. When we work together, I take the time to understand your wishes and see who you truly are. While I may not produce hundreds of photos in an instant, I can guarantee that the memories and emotions we capture will be one-of-a-kind—something no AI could ever replicate.",
+    "family": "What’s most important about every family? It’s the love that binds you together, the unique connections you share that make your family like no other. My job? It’s to capture that bond, to make sure anyone who sees the images can feel the warmth and love that define your family",
+    "book_spot": "Book a spot",
+    "love_story": "   This one’s my favorite! It’s for both of you, and my job is to capture the essence of what makes you two unique. Show me what you  share—those little moments, the smiles, the love—and I’ll make sure to capture it all. No artificial flavors here, just the natural, beautiful connection that you already have.",
+    "individual_label": "Individual photosession",
+    "family_label": "Family photosession",
+    "love_story_label": "Love story"
+  },
+  "LocaleSwitcher": {
+    "locale": "Мова",
+    "en": "English",
+    "ua": "Ukrainian"
+  },
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "portfolio": "Portfolio",
+    "contacts": "Contacts"
+  },
+  "About": {
+    "section_title": "About me",
+    "welcome_message": "Let's become friends!",
+    "introduction": "Hello, I'm Olha Dubenko, and I am truly honoured to welcome you to my photography journey. Photography has always been more than just a profession for me. it is a deep-seated passion that has grown over the years. Living in Canada, where we cherish diversity and individuality, I have been inspired to use my lens to celebrate the unique beauty found in everyone, particularly in women. My mission as a photographer is to help women see themselves in a light they may not have before—to see themselves as the beautiful, strong, and extraordinary individuals they truly are. I believe that every woman deserves to feel confident, valued, and empowered. Through my photography, I strive to capture not just an image, but the essence of who you are, reflecting your inner beauty and strength. It is my privilege to work closely with each of my clients, creating a safe and comfortable environment where you can express yourself freely. Whether it’s a portrait session, a celebration of a milestone, or simply a moment to honour your own journey, I am here to ensure that the experience is as enjoyable as the photos are stunning. Thank you for considering me as a part of your personal journey. I look forward to the opportunity to work together and to capture the beauty that is uniquely yours.",
+    "quote": "The whole point of taking pictures is so that you don’t have to explain things with words.",
+    "quote_author": "— Lisa Kristine"
+  },
+  "Footer": {
+    "contact_title": "Contact",
+    "email": "Email: dubenko.o.m@gmail.com",
+    "follow_me": "Follow Me",
+    "quick_links": "Quick Links",
+    "portfolio": "Portfolio",
+    "services": "Services",
+    "contacts": "Contact",
+    "copyright": "&copy; {year} Olha Dubenko. All rights reserved.",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_service": "Terms of Service"
+  },
+  "Contacts": {
+    "section_title": "Let's become friends!",
+    "quote": "“Don’t wait for the perfect moment. Take the moment and make it perfect.”",
+    "quote_author": "— Zoey Sayward",
+    "contact_list_title": "Easy way to find me! Follow me by one of my socials!",
+    "contact_form_title": "Hey, you can send me an email right here!",
+    "form": {
+      "name_label": "Name",
+      "surname_label": "Surname",
+      "phone_label": "Phone number",
+      "email_label": "Email",
+      "comment_label": "Write your request",
+      "submit_button": "Send"
+    }
+  },
+  "Portfolio": {
+    "made_by": "Made By Olha Dubenko"
+  }
+}
