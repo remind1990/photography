@@ -9,14 +9,8 @@ export default function LocaleSwitcher() {
     <LocaleSwitcherSelect
       defaultValue={locale}
       items={[
-        {
-          value: 'en',
-          label: t('en'),
-        },
-        {
-          value: 'ua',
-          label: t('ua'),
-        },
+        { value: 'en', label: 'English', flag: '🇺🇸' },
+        { value: 'ua', label: 'Українська', flag: '🇺🇦' },
       ]}
       label={t('label')}
     />

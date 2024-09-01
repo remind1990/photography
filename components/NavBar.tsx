@@ -5,23 +5,25 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import LocaleSwitcher from './LocaleSwitcher';
+import { useTranslations } from 'next-intl';
 
 type Props = {};
 
 const NavBar: React.FC<Props> = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const t = useTranslations('Navigation');
 
   const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Contacts', path: '/contacts' },
+    { name: t('home'), path: '/' },
+    { name: t('about'), path: '/about' },
+    { name: t('portfolio'), path: '/portfolio' },
+    { name: t('contacts'), path: '/contacts' },
   ];
 
   return (
     <header className="flex items-center justify-between p-2 main-bg text-stone-800">
-      <div className="flex items-center">
+      <div className="flex items-center w-full">
         <Image
           src="/logo.png"
           alt="Logo"
@@ -46,7 +48,9 @@ const NavBar: React.FC<Props> = () => {
             ))}
           </ul>
         </nav>
-        <LocaleSwitcher />
+        <div className="ml-auto">
+          <LocaleSwitcher />
+        </div>
       </div>
     </header>
   );
