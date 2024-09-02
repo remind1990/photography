@@ -23,7 +23,8 @@
     "home": "Home",
     "about": "About",
     "portfolio": "Portfolio",
-    "contacts": "Contacts"
+    "contacts": "Contacts",
+    "gallery": "Gallery"
   },
   "About": {
     "section_title": "About me",
@@ -44,6 +45,9 @@
     "privacy_policy": "Privacy Policy",
     "terms_of_service": "Terms of Service"
   },
+  "Gallery": {
+    "title": "Your Gallery"
+  },
   "Contacts": {
     "section_title": "Let's become friends!",
     "quote": "“Don’t wait for the perfect moment. Take the moment and make it perfect.”",
@@ -56,7 +60,8 @@
       "phone_label": "Phone number",
       "email_label": "Email",
       "comment_label": "Write your request",
-      "submit_button": "Send"
+      "submit_button": "Send",
+      "password": "Password"
     }
   },
   "Portfolio": {
