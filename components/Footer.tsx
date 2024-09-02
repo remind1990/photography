@@ -7,7 +7,7 @@ function Footer() {
   const t = useTranslations('Footer');
 
   return (
-    <div className="min-h-[500px] bg-black text-white xl:px-40 px-10 py-20 flex flex-col md:flex-row md:gap-10 gap-5 align-top">
+    <div className="min-h-[500px] bg-black text-white xl:px-40 px-10 py-20 flex flex-col md:flex-row md:gap-10 gap-5 align-top justify-around">
       <div className="mb-8">
         <h2 className="text-lg font-semibold">{t('contact_title')}</h2>
         <p>{t('email')}</p>
