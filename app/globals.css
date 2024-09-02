@@ -27,7 +27,7 @@
 }
 
 .card {
-  @apply flex flex-col xl:gap-10 md:gap-5 items-center xl:px-[40px]  md:px-[10px] pt-[20px] xl:w-[400px] md:w-1/3 h-[500px] bg-custom-gradient p-4 shadow-lg  rounded-lg hover:outline hover:outline-2 hover:outline-orange-100 cursor-pointer;
+  @apply flex flex-col xl:gap-10 md:gap-5 items-center xl:px-[40px]  md:px-[10px] pt-[20px] w-[350px] lg:w-[400px] md:w-1/3 h-[500px] bg-custom-gradient p-4 shadow-lg  rounded-lg hover:outline hover:outline-2 hover:outline-orange-100 cursor-pointer;
 }
 .card-text {
   @apply xl:text-xl  md:text-sm;
