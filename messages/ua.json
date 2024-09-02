@@ -23,7 +23,8 @@
     "home": "Головна",
     "about": "Про себе",
     "portfolio": "Портфоліо",
-    "contacts": "Контакти"
+    "contacts": "Контакти",
+    "gallery": "Галерея"
   },
   "About": {
     "section_title": "Про мене",
@@ -56,8 +57,12 @@
       "phone_label": "Номер телефону",
       "email_label": "Електронна пошта",
       "comment_label": "Напишіть свій запит",
-      "submit_button": "Надіслати"
+      "submit_button": "Надіслати",
+      "password": "Пароль"
     }
+  },
+  "Gallery": {
+    "title": "Галерея"
   },
   "Portfolio": {
     "made_by": "Моі роботи"

@@ -6,11 +6,13 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import LocaleSwitcher from './LocaleSwitcher';
 import { useTranslations } from 'next-intl';
+import useAuth from '@/app/hooks/useAuth';
 
 type Props = {};
 
 const NavBar: React.FC<Props> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations('Navigation');
@@ -25,6 +27,10 @@ const NavBar: React.FC<Props> = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  if (user) {
+    navItems.push({ name: t('gallery'), path: '/gallery' });
+  }
 
   return (
     <header className="flex items-center justify-between p-2 main-bg text-stone-800">
