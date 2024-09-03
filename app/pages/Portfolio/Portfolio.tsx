@@ -12,7 +12,7 @@ const images = [
   '/photo8.jpg',
 ];
 
-const Portfolio = () => {
+const Portfolio = ({ photos }: { photos: string[] }) => {
   const t = useTranslations('Portfolio');
   return (
     <section className="w-full flex flex-col">
@@ -22,7 +22,7 @@ const Portfolio = () => {
         </h1>
       </div>
       <div className="min-h-[500px]  bg-black z-1">
-        <Carousel images={images} />
+        <Carousel images={photos} />
       </div>
       <div className="min-h-[800px] w-full bg-[url('/bg5.jpg')] bg-cover relative">
         <div className="absolute inset-0 bg-black opacity-30"></div>
