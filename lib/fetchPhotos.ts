@@ -17,7 +17,6 @@ export const fetchPhotos = async (): Promise<string[]> => {
 };
 
 export const deletePhoto = async (photoUrl: string): Promise<void> => {
-  console.log(photoUrl);
   try {
     const photoRef = ref(storage, photoUrl);
     await deleteObject(photoRef);
