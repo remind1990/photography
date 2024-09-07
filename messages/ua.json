@@ -62,7 +62,8 @@
     }
   },
   "Gallery": {
-    "title": "Галерея"
+    "title": "Галерея",
+    "upload_photos": "Додати фото"
   },
   "Portfolio": {
     "made_by": "Моі роботи"

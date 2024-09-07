@@ -1,21 +1,29 @@
-// src/lib/fetchPhotos.ts
-
-import { getDownloadURL, listAll, ref } from 'firebase/storage';
+import { deleteObject, getDownloadURL, listAll, ref } from 'firebase/storage';
 import { storage } from '@/lib/firebase.config';
+import { userId } from '@/constants/constants';
 
-const userId = 'LHo7g0RQNqSwoiHk4LNAWzZgv9j2';
 export const fetchPhotos = async (): Promise<string[]> => {
   try {
-    console.log(`Fetching photos for user: ${userId}`); // Debugging output
     const photosRef = ref(storage, `photos/${userId}/`);
     const res = await listAll(photosRef);
     const urls = await Promise.all(
       res.items.map((itemRef) => getDownloadURL(itemRef))
     );
-    console.log(`Fetched URLs: ${urls}`); // Debugging output
     return urls;
   } catch (error) {
     console.error('Error fetching photos:', error);
-    throw error; // Re-throw the error to handle it in `getStaticProps` or `getServerSideProps`
+    throw error;
+  }
+};
+
+export const deletePhoto = async (photoUrl: string): Promise<void> => {
+  console.log(photoUrl);
+  try {
+    const photoRef = ref(storage, photoUrl);
+    await deleteObject(photoRef);
+    console.log('Photo deleted successfully');
+  } catch (error) {
+    console.error('Error deleting photo:', error);
+    throw error;
   }
 };
