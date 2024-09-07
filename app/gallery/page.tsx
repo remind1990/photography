@@ -3,8 +3,7 @@ import Gallery from '../pages/Gallery/Gallery';
 import { fetchPhotos } from '@/lib/fetchPhotos';
 
 const page = async () => {
-  const photos = await fetchPhotos();
-  return <Gallery photos={photos} />;
+  return <Gallery />;
 };
 
 export default page;

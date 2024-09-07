@@ -1,3 +1,5 @@
+'use client';
+import { usePhotoContext } from '@/app/context/PhotoContext';
 import Carousel from '@/components/Carousel';
 import { useTranslations } from 'next-intl';
 
@@ -12,8 +14,9 @@ const images = [
   '/photo8.jpg',
 ];
 
-const Portfolio = ({ photos }: { photos: string[] }) => {
+const Portfolio = () => {
   const t = useTranslations('Portfolio');
+  const { photos } = usePhotoContext();
   return (
     <section className="w-full flex flex-col">
       <div className="w-full flex min-h-[300px] items-center justify-center bg-black text-stone-100">
