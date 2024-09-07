@@ -38,7 +38,7 @@ export default function GalleryPage() {
         <Loader />
       ) : (
         <>
-          <ToolBar />
+          {user && <ToolBar />}
           <div className="grid grid-cols-4 gap-2 w-full">
             {photos.map((url, index) => (
               <div
