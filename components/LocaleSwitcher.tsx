@@ -5,7 +5,7 @@ export default function LocaleSwitcher() {
   const t = useTranslations('LocaleSwitcher');
   const locale = useLocale();
   const options = [
-    { value: 'en', label: t('en'), flag: '🇺🇸' },
+    { value: 'en', label: t('en'), flag: '🇨🇦' },
     { value: 'ua', label: t('ua'), flag: '🇺🇦' },
   ];
 
