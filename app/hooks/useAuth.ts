@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { User, onAuthStateChanged } from 'firebase/auth';
+import { User, onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase.config';
 
 function useAuth() {
@@ -16,12 +16,22 @@ function useAuth() {
       }
       setLoading(false);
     });
-
-    // Cleanup the listener on unmount
     return () => unsubscribe();
   }, []);
 
-  return { user, loading };
+  const logout = async () => {
+    setLoading(true);
+    try {
+      await signOut(auth);
+      setUser(null);
+    } catch (error) {
+      console.error('Error signing out:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { user, loading, logout };
 }
 
 export default useAuth;

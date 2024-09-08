@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import LocaleSwitcher from './LocaleSwitcher';
 import { useTranslations } from 'next-intl';
+import Button from '@/ui/Button';
+import useAuth from '@/app/hooks/useAuth';
 
 type Props = {};
 
@@ -13,6 +15,7 @@ const NavBar: React.FC<Props> = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const { user, logout } = useAuth();
   const t = useTranslations('Navigation');
 
   const navItems = [
@@ -62,6 +65,13 @@ const NavBar: React.FC<Props> = () => {
                 </Link>
               </li>
             ))}
+            {user && (
+              <li>
+                <span onClick={() => logout()} className="cursor-pointer">
+                  Log out
+                </span>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
@@ -84,6 +94,13 @@ const NavBar: React.FC<Props> = () => {
               </Link>
             </li>
           ))}
+          {user && (
+            <li>
+              <span onClick={() => logout()} className="cursor-pointer">
+                Log out
+              </span>
+            </li>
+          )}
         </ul>
       </nav>
 
