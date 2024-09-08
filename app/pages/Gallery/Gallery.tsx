@@ -7,9 +7,11 @@ import useAuth from '@/app/hooks/useAuth';
 import { usePhotoContext } from '@/app/context/PhotoContext';
 import { deletePhoto } from '@/lib/fetchPhotos';
 import Loader from '@/components/Loader';
+import { useTranslations } from 'next-intl';
 
 export default function GalleryPage() {
   const { photos, refetchPhotos, loading } = usePhotoContext();
+  const t = useTranslations('Gallery');
   const [isModalOpen, setModalOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { user } = useAuth();
@@ -38,7 +40,11 @@ export default function GalleryPage() {
         <Loader />
       ) : (
         <>
-          {user && <ToolBar />}
+          {!user ? (
+            <h1 className="my-5 text-6xl">{t('title')}</h1>
+          ) : (
+            <ToolBar />
+          )}
           <div className="grid grid-cols-4 gap-2 w-full">
             {photos.map((url, index) => (
               <div
