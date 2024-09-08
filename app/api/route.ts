@@ -21,7 +21,6 @@ export async function POST(request: Request) {
       );
     }
     requestTimestamps[userIp] = currentTime;
-
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {

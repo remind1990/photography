@@ -65,10 +65,10 @@ const Carousel = ({ images }: Props) => {
             const left = isCurrent
               ? '50%'
               : isNext
-              ? '70%'
-              : isPrev
-              ? '30%'
-              : '50%';
+                ? '70%'
+                : isPrev
+                  ? '30%'
+                  : '50%';
 
             return (
               <div
