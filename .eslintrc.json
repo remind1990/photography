@@ -6,7 +6,7 @@
       "error",
       {
         "endOfLine": "auto",
-        "trailingComma": "all"
+        "trailingComma": "es5"
       }
     ],
     "react/react-in-jsx-scope": "off"
