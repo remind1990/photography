@@ -27,10 +27,10 @@ const Portfolio = () => {
       <div className="min-h-[500px]  bg-black z-1">
         <Carousel images={photos ?? images} />
       </div>
-      <div className="min-h-[800px] w-full bg-[url('/bg5.jpg')] bg-cover bg-fixed relative">
+      <div className="min-h-[800px] w-full bg-[url('/bg5.jpg')] bg-cover bg-center bg-no-repeat md:bg-cover  md:bg-fixed relative">
         <div className="absolute inset-0 bg-black opacity-30"></div>
       </div>
-      <div className="min-h-[800px] w-full bg-[url('/bg10.jpg')] bg-cover bg-fixed relative">
+      <div className="min-h-[800px] w-full bg-[url('/bg10.jpg')] bg-cover bg-no-repeat  bg-center md:bg-cover md:bg-fixed relative">
         <div className="absolute inset-0 bg-black opacity-30"></div>
       </div>
     </section>
