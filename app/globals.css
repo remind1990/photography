@@ -82,3 +82,11 @@
   background-clip: text;
   color: transparent;
 }
+
+.parallax {
+  background-attachment: fixed;
+  background-position: 60% 75%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
