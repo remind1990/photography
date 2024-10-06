@@ -1,17 +1,18 @@
 'use client';
 import { usePhotoContext } from '@/app/context/PhotoContext';
 import Carousel from '@/components/Carousel';
+import { PhotoData } from '@/lib/fetchPhotos';
 import { useTranslations } from 'next-intl';
 
-const images = [
-  '/photo1.jpg',
-  '/photo2.jpg',
-  '/photo3.jpg',
-  '/photo4.jpg',
-  '/photo5.jpg',
-  '/photo6.jpg',
-  '/photo7.jpg',
-  '/photo8.jpg',
+const images: PhotoData[] = [
+  { url: '/photo1.jpg', order: 1 },
+  { url: '/photo2.jpg', order: 2 },
+  { url: '/photo3.jpg', order: 3 },
+  { url: '/photo4.jpg', order: 4 },
+  { url: '/photo5.jpg', order: 5 },
+  { url: '/photo6.jpg', order: 6 },
+  { url: '/photo7.jpg', order: 7 },
+  { url: '/photo8.jpg', order: 8 },
 ];
 
 const Portfolio = () => {
