@@ -94,10 +94,10 @@ export default function GalleryPage() {
     if (user) {
       updatePhotoOrder(reorderedPhotos)
         .then((res) => {
-          alert('Photo updated successfully');
+          console.log('Photo updated successfully');
         })
         .catch((error) => {
-          alert('Failed to update photo');
+          console.error('Failed to update photo', error);
         });
     }
   };
