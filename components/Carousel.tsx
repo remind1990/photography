@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Modal from './Modal';
+import { PhotoData } from '@/lib/fetchPhotos';
 
 type Props = {
-  images: string[];
+  images: PhotoData[];
 };
 
 const Carousel = ({ images }: Props) => {
@@ -39,7 +40,7 @@ const Carousel = ({ images }: Props) => {
 
   const handleImageClick = (index: number) => {
     setCurrentIndex(index);
-    setIsModalOpen(true); // Open modal
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
@@ -55,7 +56,7 @@ const Carousel = ({ images }: Props) => {
           </button>
         </div>
         <div className="relative flex items-center justify-center w-full">
-          {images.map((src, index) => {
+          {images.map((image, index) => {
             const isCurrent = index === currentIndex;
             const isNext = index === (currentIndex + 1) % images.length;
             const isPrev =
@@ -89,7 +90,7 @@ const Carousel = ({ images }: Props) => {
                   <div className="absolute z-10 bottom-1 w-[75px] h-[5px] bg-stone-800 rounded-lg" />
                   <div className="absolute inset-0">
                     <Image
-                      src={src}
+                      src={image.url}
                       alt={`Carousel image ${index + 1}`}
                       layout="fill"
                       objectFit="cover"
@@ -120,7 +121,7 @@ const Carousel = ({ images }: Props) => {
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <div className="relative w-[80vw] h-[80vh]">
           <Image
-            src={images[currentIndex]}
+            src={images[currentIndex]?.url}
             alt={`Carousel image ${currentIndex + 1}`}
             layout="fill"
             objectFit="contain"

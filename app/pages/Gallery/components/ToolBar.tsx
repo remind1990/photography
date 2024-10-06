@@ -6,13 +6,14 @@ import { storage } from '@/lib/firebase.config';
 import imageCompression from 'browser-image-compression';
 import { userId } from '@/constants/constants';
 import { usePhotoContext } from '@/app/context/PhotoContext';
+import { convertToWebP } from '@/utils/convertImage';
 
 type Props = {};
 
 function ToolBar({}: Props) {
   const t = useTranslations('Gallery');
   const [files, setFiles] = useState<File[]>([]);
-  const { refetchPhotos } = usePhotoContext();
+  const { refetchPhotos, maxOrder, setLoading } = usePhotoContext();
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -24,6 +25,7 @@ function ToolBar({}: Props) {
 
   const handleUpload = async (selectedFiles: File[]) => {
     if (selectedFiles.length > 0) {
+      setLoading(true);
       for (const file of selectedFiles) {
         let imageFile = file;
         if (file.size > 512 * 1024) {
@@ -42,48 +44,19 @@ function ToolBar({}: Props) {
         try {
           const webpFile = await convertToWebP(imageFile);
           const storageRef = ref(storage, `photos/${userId}/${file.name}.webp`);
-          await uploadBytes(storageRef, webpFile);
+          const metadata = {
+            customMetadata: {
+              order: String(maxOrder + 1) || '0',
+            },
+          };
+          await uploadBytes(storageRef, webpFile, metadata);
           await refetchPhotos();
         } catch (error) {
           console.error('Error during upload:', error);
         }
       }
+      setLoading(false);
     }
-  };
-
-  const convertToWebP = async (imageFile: File): Promise<File> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event: any) => {
-        const img = new Image();
-        img.src = event.target.result;
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          canvas.width = img.width;
-          canvas.height = img.height;
-          if (ctx) {
-            ctx.drawImage(img, 0, 0);
-          }
-          canvas.toBlob(
-            (blob) => {
-              if (blob) {
-                const webpFile = new File([blob], imageFile.name + '.webp', {
-                  type: 'image/webp',
-                });
-                resolve(webpFile);
-              } else {
-                reject(new Error('Conversion to WebP failed.'));
-              }
-            },
-            'image/webp',
-            0.8
-          );
-        };
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(imageFile);
-    });
   };
 
   return (

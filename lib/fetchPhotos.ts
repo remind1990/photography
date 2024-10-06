@@ -1,15 +1,32 @@
-import { deleteObject, getDownloadURL, listAll, ref } from 'firebase/storage';
+import {
+  deleteObject,
+  getDownloadURL,
+  listAll,
+  ref,
+  getMetadata,
+} from 'firebase/storage';
 import { storage } from '@/lib/firebase.config';
 import { userId } from '@/constants/constants';
 
-export const fetchPhotos = async (): Promise<string[]> => {
+export type PhotoData = {
+  url: string;
+  order: number;
+};
+
+export const fetchPhotos = async (): Promise<PhotoData[]> => {
   try {
     const photosRef = ref(storage, `photos/${userId}/`);
     const res = await listAll(photosRef);
-    const urls = await Promise.all(
-      res.items.map((itemRef) => getDownloadURL(itemRef))
+    const photoData = await Promise.all(
+      res.items.map(async (itemRef) => {
+        const url = await getDownloadURL(itemRef);
+        const metadata = await getMetadata(itemRef);
+        const order = parseInt(metadata.customMetadata?.order || '0', 10);
+        return { url, order };
+      })
     );
-    return urls;
+    photoData.sort((a, b) => a.order - b.order);
+    return photoData;
   } catch (error) {
     console.error('Error fetching photos:', error);
     throw error;
