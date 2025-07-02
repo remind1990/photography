@@ -53,6 +53,28 @@ export default async function RootLayout({
           <NavBar />
           <PhotoProvider initialPhotos={photos ?? []}>{children}</PhotoProvider>
           <Footer />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'LocalBusiness',
+                name: 'Dubenko Photography',
+                image: 'https://dubenko-olya-ph.com/og-image.jpg',
+                url: 'https://dubenko-olya-ph.com',
+                telephone: '+1 709-555-1234',
+                address: {
+                  '@type': 'PostalAddress',
+                  addressLocality: "St. John's",
+                  addressRegion: 'NL',
+                  postalCode: 'A1B 0G5',
+                  addressCountry: 'CA',
+                },
+                description:
+                  "Professional photographer in St. John's, Newfoundland and Labrador.",
+              }),
+            }}
+          />
         </NextIntlClientProvider>
       </body>
     </html>

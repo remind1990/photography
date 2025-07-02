@@ -32,6 +32,9 @@ type PhotoProviderProps = {
   children: ReactNode;
 };
 
+const sortPhotos = (photos: PhotoData[]) =>
+  [...photos].sort((a, b) => (b.order ?? 0) - (a.order ?? 0));
+
 export const PhotoProvider = ({
   initialPhotos,
   children,
@@ -49,7 +52,7 @@ export const PhotoProvider = ({
     setLoading(true);
     const updatedPhotos = await fetchPhotos();
     if (updatedPhotos?.length > 0) {
-      setPhotos(updatedPhotos);
+      setPhotos(sortPhotos(updatedPhotos));
     }
     setLoading(false);
   };

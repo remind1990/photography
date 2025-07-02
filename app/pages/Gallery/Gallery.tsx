@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 import ToolBar from './components/ToolBar';
 import Modal from '@/components/Modal';
 import Image from 'next/image';
@@ -21,7 +21,8 @@ export default function GalleryPage() {
   const { user } = useAuth();
   const [photoList, setPhotoList] = useState<PhotoData[]>(photos);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    console.log('GalleryPage useLayoutEffect', photos);
     setPhotoList(photos);
   }, [photos]);
 

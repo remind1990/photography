@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 export interface DragItem {
@@ -19,6 +19,8 @@ export interface DraggablePhotoProps {
 
 function DraggablePhoto({ url, index, movePhoto }: DraggablePhotoProps) {
   const dragRef = useRef<HTMLDivElement | null>(null);
+  const [loading, setLoading] = useState(true);
+
   const [, ref] = useDrag<DragItem>({
     type: ItemType.PHOTO,
     item: { index, type: ItemType.PHOTO },
@@ -43,12 +45,18 @@ function DraggablePhoto({ url, index, movePhoto }: DraggablePhotoProps) {
 
   return (
     <div ref={dragRef} className="relative w-full h-[500px] cursor-pointer">
+      {loading && (
+        <div className="absolute inset-0 bg-gray-200 animate-pulse rounded" />
+      )}
       <Image
         src={url}
         alt={`Photo ${index}`}
         className="w-full h-full object-cover"
         layout="fill"
         objectFit="contain"
+        onLoadingComplete={() => setLoading(false)}
+        onLoad={() => setLoading(false)}
+        style={loading ? { visibility: 'hidden' } : {}}
       />
     </div>
   );
