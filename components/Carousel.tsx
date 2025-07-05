@@ -92,8 +92,9 @@ const Carousel = ({ images }: Props) => {
                     <Image
                       src={image.url}
                       alt={`Carousel image ${index + 1}`}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      style={{ objectFit: 'cover' }}
                     />
                   </div>
                 </div>
@@ -123,8 +124,8 @@ const Carousel = ({ images }: Props) => {
           <Image
             src={images[currentIndex]?.url}
             alt={`Carousel image ${currentIndex + 1}`}
-            layout="fill"
-            objectFit="contain"
+            fill
+            style={{ objectFit: 'contain' }}
           />
         </div>
       </Modal>
