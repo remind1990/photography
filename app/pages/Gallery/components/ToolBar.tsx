@@ -26,8 +26,10 @@ function ToolBar({}: Props) {
   const handleUpload = async (selectedFiles: File[]) => {
     if (selectedFiles.length > 0) {
       setLoading(true);
+      let currentOrder = maxOrder + 1; // start from the next available order
       for (const file of selectedFiles) {
         let imageFile = file;
+
         if (file.size > 512 * 1024) {
           const options = {
             maxSizeMB: 0.5,
@@ -38,23 +40,27 @@ function ToolBar({}: Props) {
             console.log('Image compressed');
           } catch (error) {
             console.error('Error during compression:', error);
-            return;
+            continue;
           }
         }
+
         try {
           const webpFile = await convertToWebP(imageFile);
-          const storageRef = ref(storage, `photos/${userId}/${file.name}.webp`);
+          const fileName = `${Date.now()}-${file.name}.webp`; // optionally ensure uniqueness
+          const storageRef = ref(storage, `photos/${userId}/${fileName}`);
           const metadata = {
             customMetadata: {
-              order: String(maxOrder + 1) || '0',
+              order: String(currentOrder),
             },
           };
           await uploadBytes(storageRef, webpFile, metadata);
-          await refetchPhotos();
+          currentOrder++; // increment order for next file
         } catch (error) {
           console.error('Error during upload:', error);
         }
       }
+
+      await refetchPhotos(); // refetch after all uploads
       setLoading(false);
     }
   };
