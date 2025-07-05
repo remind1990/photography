@@ -15,15 +15,22 @@ export interface DraggablePhotoProps {
   url: string;
   index: number;
   movePhoto: (fromIndex: number, toIndex: number) => void;
+  canDrag?: boolean;
 }
 
-function DraggablePhoto({ url, index, movePhoto }: DraggablePhotoProps) {
+function DraggablePhoto({
+  url,
+  index,
+  movePhoto,
+  canDrag,
+}: DraggablePhotoProps) {
   const dragRef = useRef<HTMLDivElement | null>(null);
   const [loading, setLoading] = useState(true);
 
   const [, ref] = useDrag<DragItem>({
     type: ItemType.PHOTO,
     item: { index, type: ItemType.PHOTO },
+    canDrag,
   });
 
   const [, drop] = useDrop<DragItem>({
