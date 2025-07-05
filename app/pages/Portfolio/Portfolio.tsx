@@ -34,14 +34,17 @@ const Portfolio = () => {
           {t('made_by')}
         </h1>
       </div>
-      <div className="min-h-[500px]  bg-black z-1">
-        <Carousel images={displayedPhotos ?? images} />
+
+      <div className="min-h-[500px] bg-black z-1">
+        <Carousel images={displayedPhotos} />
       </div>
-      <div className="min-h-[800px] w-full bg-[url('/bg5.jpg')] bg-cover bg-center bg-no-repeat md:bg-cover  md:bg-fixed relative">
-        <div className="absolute inset-0 bg-black opacity-30"></div>
+
+      <div className="min-h-[800px] w-full bg-[url('/bg5.jpg')] bg-cover bg-center bg-no-repeat relative md:bg-fixed">
+        <div className="absolute inset-0 bg-black opacity-30 pointer-events-none"></div>
       </div>
-      <div className="min-h-[800px] w-full bg-[url('/bg10.jpg')] bg-cover bg-no-repeat  bg-center md:bg-cover md:bg-fixed relative">
-        <div className="absolute inset-0 bg-black opacity-30"></div>
+
+      <div className="min-h-[800px] w-full bg-[url('/bg10.jpg')] bg-cover bg-no-repeat bg-center relative md:bg-fixed">
+        <div className="absolute inset-0 bg-black opacity-30 pointer-events-none"></div>
       </div>
     </section>
   );
