@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Modal from './Modal';
 import { PhotoData } from '@/lib/fetchPhotos';
-import ImageWithFallBack from './ImageWithFallBack';
 
 type Props = {
   images: PhotoData[];
@@ -90,7 +89,7 @@ const Carousel = ({ images }: Props) => {
                   <div className="absolute z-10 top-2 w-[60px] h-[15px] bg-stone-800 rounded-lg" />
                   <div className="absolute z-10 bottom-1 w-[75px] h-[5px] bg-stone-800 rounded-lg" />
                   <div className="absolute inset-0">
-                    <ImageWithFallBack
+                    <Image
                       src={image.url}
                       alt={`Carousel image ${index + 1}`}
                       layout="fill"

@@ -82,7 +82,7 @@ export default function GalleryPage() {
               {photoList.map((photo, index) => (
                 <div
                   key={index}
-                  className="relative w-full h-[500px]"
+                  className="relative w-full aspect-[3/4] sm:aspect-[3/4] md:aspect-[3/4] lg:aspect-[3/4]"
                   onClick={() => openModal(index)}
                 >
                   <DraggablePhoto
@@ -113,6 +113,7 @@ export default function GalleryPage() {
                     alt={`Carousel image ${currentIndex + 1}`}
                     layout="fill"
                     objectFit="contain"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   />
                 </div>
               </Modal>

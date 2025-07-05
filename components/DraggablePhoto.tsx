@@ -51,19 +51,21 @@ function DraggablePhoto({
   }, [ref, drop]);
 
   return (
-    <div ref={dragRef} className="relative w-full h-[500px] cursor-pointer">
+    <div ref={dragRef} className="relative w-full aspect-[3/4] cursor-pointer">
       {loading && (
         <div className="absolute inset-0 bg-gray-200 animate-pulse rounded" />
       )}
       <Image
         src={url}
         alt={`Photo ${index}`}
-        className="w-full h-full object-cover"
-        layout="fill"
-        objectFit="contain"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+        style={{
+          objectFit: 'contain',
+          visibility: loading ? 'hidden' : 'visible',
+        }}
         onLoadingComplete={() => setLoading(false)}
         onLoad={() => setLoading(false)}
-        style={loading ? { visibility: 'hidden' } : {}}
       />
     </div>
   );
