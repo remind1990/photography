@@ -89,6 +89,7 @@ export default function GalleryPage() {
                     url={photo.url}
                     index={index}
                     movePhoto={movePhoto}
+                    canDrag={!!user}
                   />
                   {user && (
                     <button
