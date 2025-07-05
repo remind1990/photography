@@ -3,6 +3,7 @@ import { usePhotoContext } from '@/app/context/PhotoContext';
 import Carousel from '@/components/Carousel';
 import { PhotoData } from '@/lib/fetchPhotos';
 import { useTranslations } from 'next-intl';
+import { useMemo } from 'react';
 
 const images: PhotoData[] = [
   { url: '/photo1.jpg', order: 1 },
@@ -18,6 +19,7 @@ const images: PhotoData[] = [
 const Portfolio = () => {
   const t = useTranslations('Portfolio');
   const { photos } = usePhotoContext();
+
   return (
     <section className="w-full flex flex-col">
       <div className="w-full flex min-h-[300px] items-center justify-center bg-black text-stone-100">

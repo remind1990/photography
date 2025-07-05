@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 import ToolBar from './components/ToolBar';
 import Modal from '@/components/Modal';
 import Image from 'next/image';
@@ -21,8 +21,9 @@ export default function GalleryPage() {
   const { user } = useAuth();
   const [photoList, setPhotoList] = useState<PhotoData[]>(photos);
 
-  useEffect(() => {
-    setPhotoList(photos);
+  useLayoutEffect(() => {
+    console.log('GalleryPage useLayoutEffect', photos);
+    setPhotoList([...photos].reverse());
   }, [photos]);
 
   const openModal = (index: number) => {
@@ -47,19 +48,21 @@ export default function GalleryPage() {
     const updatedPhotos = [...photoList];
     const [movedPhoto] = updatedPhotos.splice(fromIndex, 1);
     updatedPhotos.splice(toIndex, 0, movedPhoto);
-    const reorderedPhotos = updatedPhotos.map((photo, index) => ({
-      ...photo,
-      order: index,
-    }));
+
+    // Reassign "reversed" order so that top = highest number
+    const reorderedPhotos = [...updatedPhotos]
+      .reverse() // so the first shown = highest order
+      .map((photo, index) => ({
+        ...photo,
+        order: index,
+      }));
+
     setPhotoList(updatedPhotos);
+
     if (user) {
       updatePhotoOrder(reorderedPhotos)
-        .then((res) => {
-          console.log('Photo updated successfully');
-        })
-        .catch((error) => {
-          console.error('Failed to update photo', error);
-        });
+        .then(() => console.log('Photo updated successfully'))
+        .catch((error) => console.error('Failed to update photo', error));
     }
   };
 
