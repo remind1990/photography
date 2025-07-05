@@ -64,7 +64,6 @@ function DraggablePhoto({
           objectFit: 'contain',
           visibility: loading ? 'hidden' : 'visible',
         }}
-        onLoadingComplete={() => setLoading(false)}
         onLoad={() => setLoading(false)}
       />
     </div>
