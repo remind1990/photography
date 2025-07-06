@@ -55,12 +55,17 @@ const Carousel = ({ images }: Props) => {
             &lt;
           </button>
         </div>
+
         <div className="relative flex items-center justify-center w-full">
           {images.map((image, index) => {
             const isCurrent = index === currentIndex;
             const isNext = index === (currentIndex + 1) % images.length;
             const isPrev =
               index === (currentIndex - 1 + images.length) % images.length;
+
+            // Only render current, next, and previous
+            if (!isCurrent && !isNext && !isPrev) return null;
+
             const zIndex = isCurrent ? 30 : isNext || isPrev ? 20 : 10;
             const scale = isCurrent ? 1.1 : 0.95;
             const left = isCurrent
@@ -74,12 +79,12 @@ const Carousel = ({ images }: Props) => {
             return (
               <div
                 key={index}
-                className={`absolute transition-all duration-500 cursor-pointer`}
+                className="absolute transition-all duration-500 cursor-pointer"
                 style={{
-                  zIndex: zIndex,
+                  zIndex,
                   transform: `translateX(-50%) scale(${scale})`,
-                  left: left,
-                  opacity: isCurrent || isNext || isPrev ? 1 : 0,
+                  left,
+                  opacity: 1,
                 }}
               >
                 <div
@@ -102,6 +107,7 @@ const Carousel = ({ images }: Props) => {
             );
           })}
         </div>
+
         <div className="hidden sm:flex absolute right-0">
           <button onClick={handleNextClick} className="btn-carousel">
             &gt;
@@ -110,7 +116,7 @@ const Carousel = ({ images }: Props) => {
       </div>
 
       {/* Buttons displayed below the carousel on mobile */}
-      <div className="flex justify-between mt-20  mx-auto w-[50%] sm:hidden">
+      <div className="flex justify-between mt-20 mx-auto w-[50%] sm:hidden">
         <button onClick={handlePrevClick} className="btn-carousel">
           &lt;
         </button>
