@@ -20,12 +20,12 @@ const Portfolio = () => {
   const t = useTranslations('Portfolio');
   const { photos } = usePhotoContext();
 
-  // const displayedPhotos = useMemo(() => {
-  //   if (photos && Array.isArray(photos) && photos.length > 0) {
-  //     return [...photos].reverse();
-  //   }
-  //   return images;
-  // }, [photos]);
+  const displayedPhotos = useMemo(() => {
+    if (Array.isArray(photos) && photos.length > 0) {
+      return [...photos].reverse(); // prevent mutation
+    }
+    return images;
+  }, [photos]);
 
   return (
     <section className="w-full flex flex-col">
@@ -36,7 +36,7 @@ const Portfolio = () => {
       </div>
 
       <div className="min-h-[500px] bg-black z-1">
-        <Carousel images={photos ?? images} />
+        <Carousel images={displayedPhotos} />
       </div>
 
       <div className="min-h-[800px] w-full bg-[url('/bg5.jpg')] bg-cover bg-center bg-no-repeat relative md:bg-fixed">
