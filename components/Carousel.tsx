@@ -88,7 +88,13 @@ const Carousel = ({ images }: Props) => {
                 }}
               >
                 <div
-                  className="relative w-[230px] h-[450px] bg-white rounded-[30px] shadow-lg overflow-hidden flex items-center justify-center border-[12px] border-[#3b3b3d]"
+                  className="relative w-[230px] h-[450px] bg-black shadow-lg overflow-hidden flex items-center justify-center"
+                  style={{
+                    borderWidth: '12px',
+                    borderStyle: 'solid',
+                    borderRadius: '30px',
+                    borderColor: 'transparent',
+                  }}
                   onClick={() => handleImageClick(index)}
                 >
                   <div className="absolute z-10 top-2 w-[60px] h-[15px] bg-stone-800 rounded-lg" />
