@@ -10,7 +10,6 @@ const About = (props: Props) => {
   return (
     <section className="w-full flex flex-col">
       <div className="w-full flex md:min-h-[700px] sm:min-h-[400px] min-h-[300px] items-center justify-center bg-[url('/bg_new2.jpg')] bg-center bg-cover text-stone-100 relative">
-        <h1 className="text-4xl">{t('section_title')}</h1>
         <Image
           className="absolute bottom-[-100px] md:bottom-[-200px] w-[200px] h-[250px] md:w-[400px] md:h-[500px] object-cover"
           src="/photo6.jpg"
