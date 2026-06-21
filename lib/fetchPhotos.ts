@@ -28,8 +28,11 @@ export const fetchPhotos = async (): Promise<PhotoData[]> => {
     photoData.sort((a, b) => a.order - b.order);
     return photoData;
   } catch (error) {
+    // Don't let a Storage failure (e.g. quota-exceeded) crash the whole site:
+    // this runs in the root layout, so throwing would 500 every page.
+    // Render with an empty gallery instead.
     console.error('Error fetching photos:', error);
-    throw error;
+    return [];
   }
 };
 

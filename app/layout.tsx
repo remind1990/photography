@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { PhotoProvider } from './context/PhotoContext';
-import { fetchPhotos } from '@/lib/fetchPhotos';
+import { getCachedPhotos } from '@/lib/getCachedPhotos';
 
 const inter = Montserrat({ subsets: ['latin'] });
 
@@ -45,7 +45,7 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   const messages = await getMessages();
-  const photos = await fetchPhotos();
+  const photos = await getCachedPhotos();
   return (
     <html lang={locale}>
       <body className={inter.className}>

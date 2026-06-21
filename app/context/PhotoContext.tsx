@@ -9,6 +9,7 @@ import {
   Dispatch,
 } from 'react';
 import { fetchPhotos, PhotoData } from '@/lib/fetchPhotos';
+import { revalidatePhotos } from '@/lib/revalidatePhotos';
 
 type PhotoContextType = {
   photos: PhotoData[];
@@ -54,6 +55,8 @@ export const PhotoProvider = ({
     if (updatedPhotos?.length > 0) {
       setPhotos(sortPhotos(updatedPhotos));
     }
+    // Bust the server-side cache so public visitors see the change immediately.
+    await revalidatePhotos();
     setLoading(false);
   };
 
