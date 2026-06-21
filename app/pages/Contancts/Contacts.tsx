@@ -18,11 +18,11 @@ const Contacts = () => {
           </cite>
         </blockquote>
       </div>
+      <CalBooking />
       <div className="w-full flex flex-col md:flex-row min-h-[500px] main-bg text-stone-100 px-2 md:px-40 pb-20 gap-4">
         <ContactList />
         <ContactForm />
       </div>
-      <CalBooking />
     </section>
   );
 };

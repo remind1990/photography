@@ -16,6 +16,11 @@ export default function CalBooking() {
       const cal = await getCalApi();
       cal('ui', {
         theme: 'light',
+        // Match the site's warm palette (buttons #fad29e / hover #a99174).
+        cssVarsPerTheme: {
+          light: { 'cal-brand': '#a99174' },
+          dark: { 'cal-brand': '#fad29e' },
+        },
         hideEventTypeDetails: false,
         layout: 'month_view',
       });
