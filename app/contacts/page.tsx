@@ -5,7 +5,7 @@ import Contacts from '../pages/Contancts/Contacts';
 export const metadata: Metadata = {
   title: 'Contact & Booking',
   description:
-    "Book a photoshoot with Olha Dubenko in St. John's, Newfoundland. Get in touch by email or social media to plan your individual, family or love-story session.",
+    "Book a photoshoot with Olha Dubenko in St. John's, Newfoundland. Get in touch by email or social media to plan your individual or family session.",
   alternates: { canonical: '/contacts' },
 };
 

@@ -93,20 +93,6 @@ const Main = () => {
             {t('book_spot')}
           </Button>
         </div>
-        <div className="card">
-          <p className="text-2xl">{t('love_story_label')}</p>
-          <p className="global-text-sizes max-w-[100%] h-[70%] overflow-auto">
-            {t('love_story')}
-          </p>
-          <Button
-            variant="primary"
-            onClick={() => {
-              router.push('/contacts');
-            }}
-          >
-            {t('book_spot')}
-          </Button>
-        </div>
       </div>
     </section>
   );

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: '%s | Dubenko Photography',
   },
   description:
-    "Professional photographer in St. John's, Newfoundland and Labrador. Individual, family and love-story photoshoots. Book your session today!",
+    "Professional photographer in St. John's, Newfoundland and Labrador. Individual and family photoshoots. Book your session today!",
   keywords: [
     'photographer',
     "St. John's photographer",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     siteName: 'Dubenko Photography',
     title: "Dubenko Photography — Photographer in St. John's, Newfoundland",
     description:
-      "Professional photographer in St. John's, Newfoundland and Labrador. Individual, family and love-story photoshoots.",
+      "Professional photographer in St. John's, Newfoundland and Labrador. Individual and family photoshoots.",
     url: 'https://dubenko-olya-ph.com/',
     locale: 'en_CA',
   },
@@ -104,7 +104,7 @@ export default async function RootLayout({
                   'https://www.facebook.com/olha.dubenko.2025',
                 ],
                 description:
-                  "Professional photographer in St. John's, Newfoundland and Labrador, offering individual, family and love-story photoshoots.",
+                  "Professional photographer in St. John's, Newfoundland and Labrador, offering individual and family photoshoots.",
               }),
             }}
           />

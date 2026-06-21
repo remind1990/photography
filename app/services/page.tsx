@@ -37,12 +37,6 @@ export default function Page() {
       title: t('individual_title'),
       blurb: t('individual_blurb'),
     },
-    {
-      href: '/services/love-story',
-      image: '/photo7.jpg',
-      title: t('love_title'),
-      blurb: t('love_blurb'),
-    },
   ];
 
   return (

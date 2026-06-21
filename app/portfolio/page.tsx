@@ -5,7 +5,7 @@ import Portfolio from '../pages/Portfolio/Portfolio';
 export const metadata: Metadata = {
   title: 'Portfolio',
   description:
-    "Browse the photography portfolio of Olha Dubenko — individual portraits, family sessions and love-story shoots in St. John's, Newfoundland.",
+    "Browse the photography portfolio of Olha Dubenko — individual portraits and family sessions in St. John's, Newfoundland.",
   alternates: { canonical: '/portfolio' },
 };
 
