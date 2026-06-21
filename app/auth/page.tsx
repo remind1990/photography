@@ -1,9 +1,13 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import SignIn from '../pages/SignIn/SignIn';
 
-type Props = {};
+// Admin sign-in — keep it out of search results.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
-const pages = (props: Props) => {
+const pages = () => {
   return <SignIn />;
 };
 

@@ -7,34 +7,52 @@ import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { PhotoProvider } from './context/PhotoContext';
 import { getCachedPhotos } from '@/lib/getCachedPhotos';
+import Analytics from '@/components/Analytics';
 
 const inter = Montserrat({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Dubenko Photography - St. Johns, Newfoundland and Labrador',
+  metadataBase: new URL('https://dubenko-olya-ph.com'),
+  title: {
+    default: "Dubenko Photography — Photographer in St. John's, Newfoundland",
+    template: '%s | Dubenko Photography',
+  },
   description:
-    'Professional photography services in St. Johns, Newfoundland and Labrador. Book your photoshoot today!',
+    "Professional photographer in St. John's, Newfoundland and Labrador. Individual, family and love-story photoshoots. Book your session today!",
   keywords: [
-    'Photography',
-    'St. Johns',
+    'photographer',
+    "St. John's photographer",
     'Newfoundland and Labrador',
-    'Photoshoot',
+    'Newfoundland photographer',
+    'photoshoot',
+    'family photoshoot',
+    'individual portrait',
+    'love story photoshoot',
     'Dubenko Photography',
-    'Canada',
+    'Olha Dubenko',
+    'Canada photographer',
   ],
+  alternates: {
+    canonical: '/',
+  },
+  verification: {
+    // Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in Vercel to verify Search Console.
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
   openGraph: {
-    title: 'Dubenko Photography - St. Johns, Newfoundland and Labrador',
+    type: 'website',
+    siteName: 'Dubenko Photography',
+    title: "Dubenko Photography — Photographer in St. John's, Newfoundland",
     description:
-      'Professional photography services in St. Johns, Newfoundland and Labrador. Book your photoshoot today!',
+      "Professional photographer in St. John's, Newfoundland and Labrador. Individual, family and love-story photoshoots.",
     url: 'https://dubenko-olya-ph.com/',
-    images: [
-      {
-        url: 'https://dubenko-olya-ph.com/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Dubenko Photography',
-      },
-    ],
+    locale: 'en_CA',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Dubenko Photography — Photographer in St. John's, Newfoundland",
+    description:
+      "Professional photographer in St. John's, Newfoundland and Labrador. Book your photoshoot today!",
   },
 };
 
@@ -49,6 +67,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={inter.className}>
+        <Analytics />
         <NextIntlClientProvider messages={messages} locale={locale}>
           <NavBar />
           <PhotoProvider initialPhotos={photos ?? []}>{children}</PhotoProvider>
@@ -58,20 +77,30 @@ export default async function RootLayout({
             dangerouslySetInnerHTML={{
               __html: JSON.stringify({
                 '@context': 'https://schema.org',
-                '@type': 'LocalBusiness',
+                '@type': 'ProfessionalService',
+                '@id': 'https://dubenko-olya-ph.com/#business',
                 name: 'Dubenko Photography',
-                image: 'https://dubenko-olya-ph.com/og-image.jpg',
+                image: 'https://dubenko-olya-ph.com/photo1.jpg',
+                logo: 'https://dubenko-olya-ph.com/logo.png',
                 url: 'https://dubenko-olya-ph.com',
-                telephone: '+1 709-555-1234',
+                email: 'dubenko.o.m@gmail.com',
+                priceRange: '$$',
+                areaServed: {
+                  '@type': 'City',
+                  name: "St. John's",
+                },
                 address: {
                   '@type': 'PostalAddress',
                   addressLocality: "St. John's",
                   addressRegion: 'NL',
-                  postalCode: 'A1B 0G5',
                   addressCountry: 'CA',
                 },
+                founder: {
+                  '@type': 'Person',
+                  name: 'Olha Dubenko',
+                },
                 description:
-                  "Professional photographer in St. John's, Newfoundland and Labrador.",
+                  "Professional photographer in St. John's, Newfoundland and Labrador, offering individual, family and love-story photoshoots.",
               }),
             }}
           />

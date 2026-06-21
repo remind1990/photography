@@ -1,9 +1,15 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Portfolio from '../pages/Portfolio/Portfolio';
 
-type Props = {};
+export const metadata: Metadata = {
+  title: 'Portfolio',
+  description:
+    "Browse the photography portfolio of Olha Dubenko — individual portraits, family sessions and love-story shoots in St. John's, Newfoundland.",
+  alternates: { canonical: '/portfolio' },
+};
 
-const page = async (props: Props) => {
+const page = async () => {
   return <Portfolio />;
 };
 
