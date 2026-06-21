@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://dubenko-olya-ph.com
-
-# Sitemaps
-Sitemap: https://dubenko-olya-ph.com/sitemap.xml

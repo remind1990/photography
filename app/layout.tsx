@@ -99,6 +99,10 @@ export default async function RootLayout({
                   '@type': 'Person',
                   name: 'Olha Dubenko',
                 },
+                sameAs: [
+                  'https://www.instagram.com/olya_photographer_/',
+                  'https://www.facebook.com/olha.dubenko.2025',
+                ],
                 description:
                   "Professional photographer in St. John's, Newfoundland and Labrador, offering individual, family and love-story photoshoots.",
               }),
