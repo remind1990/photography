@@ -16,10 +16,11 @@ export default function CalBooking() {
       const cal = await getCalApi();
       cal('ui', {
         theme: 'light',
-        // Match the site's warm palette (buttons #fad29e / hover #a99174).
+        // Black accent (the default look) + transparent background so the
+        // widget blends into the page's orange gradient (.main-bg parent).
         cssVarsPerTheme: {
-          light: { 'cal-brand': '#a99174' },
-          dark: { 'cal-brand': '#fad29e' },
+          light: { 'cal-brand': '#000000', 'cal-bg': 'transparent' },
+          dark: { 'cal-brand': '#ffffff', 'cal-bg': 'transparent' },
         },
         hideEventTypeDetails: false,
         layout: 'month_view',
@@ -32,7 +33,7 @@ export default function CalBooking() {
       <h2 className="text-2xl text-stone-800 text-center">
         {t('booking_title')}
       </h2>
-      <div className="w-full rounded-lg overflow-hidden bg-white shadow-lg">
+      <div className="w-full rounded-lg overflow-hidden bg-transparent">
         <Cal
           calLink={CAL_LINK}
           style={{ width: '100%', height: '100%', overflow: 'scroll' }}
