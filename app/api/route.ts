@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
     const mailOptions = {
       from: process.env.USER_EMAIL,
-      to: process.env.USER_EMAIL,
+      to: process.env.OLHA_EMAIL || process.env.USER_EMAIL,
       replyTo: email,
       subject: 'New request for Photosession',
       html: `

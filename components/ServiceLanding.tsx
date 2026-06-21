@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export type ServiceLandingProps = {
   heroImage: string;
@@ -24,6 +25,7 @@ export default function ServiceLanding({
   localBlurb,
   galleryImages = [],
 }: ServiceLandingProps) {
+  const t = useTranslations('Services.common');
   return (
     <section className="w-full flex flex-col">
       <div className="relative w-full min-h-[60vh] flex flex-col items-center justify-center text-center text-stone-100 px-6 py-24">
@@ -44,7 +46,7 @@ export default function ServiceLanding({
         <p className="text-lg leading-relaxed text-stone-700">{intro}</p>
 
         <div>
-          <h2 className="text-2xl mb-4">What&apos;s included</h2>
+          <h2 className="text-2xl mb-4">{t('whats_included')}</h2>
           <ul className="flex flex-col gap-2 text-stone-700">
             {includes.map((item) => (
               <li key={item} className="flex gap-3">
@@ -74,11 +76,9 @@ export default function ServiceLanding({
         )}
 
         <div className="flex flex-col items-center gap-4 py-8">
-          <h2 className="text-2xl text-center">
-            Ready to book your photoshoot in St. John&apos;s?
-          </h2>
+          <h2 className="text-2xl text-center">{t('cta_title')}</h2>
           <Link href="/contacts" className="btn-large btn-primary">
-            Book a spot
+            {t('book_spot')}
           </Link>
         </div>
       </div>
