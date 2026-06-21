@@ -1,11 +1,10 @@
 import React from 'react';
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
+import CalBooking from '@/components/CalBooking';
 import { useTranslations } from 'next-intl';
 
-type Props = {};
-
-const Contacts = (props: Props) => {
+const Contacts = () => {
   const t = useTranslations('Contacts');
 
   return (
@@ -23,6 +22,7 @@ const Contacts = (props: Props) => {
         <ContactList />
         <ContactForm />
       </div>
+      <CalBooking />
     </section>
   );
 };
