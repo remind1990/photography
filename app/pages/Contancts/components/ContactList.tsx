@@ -10,6 +10,14 @@ const ContactList = () => {
     <div className="text-stone-800 w-full flex flex-col gap-8 items-start">
       <h2 className="text-xl">{t('contact_list_title')}</h2>
       <Socials />
+      <a
+        href="https://g.page/r/CdqwAVXxYwMnECE/review"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn-large btn-primary inline-block"
+      >
+        {t('leave_review')}
+      </a>
     </div>
   );
 };
