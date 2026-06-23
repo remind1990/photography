@@ -3,25 +3,30 @@ import { fetchPhotos, PhotoData } from './fetchPhotos';
 
 // Server-only cached read of the gallery photos.
 //
-// The root layout renders on every request, so without caching each page view
-// fires a `listAll` + per-photo `getMetadata`/`getDownloadURL` against Firebase
-// Storage. On the free (Spark) plan that quickly burns the daily quota and the
-// whole site 500s with `storage/quota-exceeded`.
+// The root layout renders on every request. Without caching, each page view
+// fires a `listAll` + per-photo `getMetadata`/`getDownloadURL` burst against
+// Firebase Storage — dozens of operations per visit, which hammers the quota
+// (and runs up Blaze operation costs).
 //
-// Caching collapses all those calls into one refresh per `revalidate` window.
-// The admin's client-side `refetchPhotos` stays uncached, so uploads/deletes
-// are still reflected immediately in the editing session; a full reload then
-// picks up the change within the revalidate window (or instantly if you call
-// `revalidateTag('photos')` after a mutation).
-// The cached fetch lets fetchPhotos throw on failure, so unstable_cache never
-// stores an empty/error result (a throw is not cached). The key is versioned so
-// bumping it discards any previously cached empty list from a past outage.
+// The gallery only changes when Olha uploads/deletes a photo, so we cache the
+// list aggressively and invalidate on demand instead of polling on a timer:
+//   • revalidate: 24h  — a safety net; Firebase is touched at most once a day
+//     even with no mutations (e.g. if photos are changed outside the app).
+//   • tags: ['photos'] — the admin's upload/delete flow calls
+//     revalidateTag('photos') (see revalidatePhotos), so a change Olha makes is
+//     reflected on the public site IMMEDIATELY, without waiting for the window.
+//
+// fetchPhotos throws on failure, so unstable_cache never stores an empty/error
+// result (a throw is not cached). The key is versioned so bumping it discards
+// any list cached under an old strategy.
+const ONE_DAY = 60 * 60 * 24;
+
 const cachedFetch = unstable_cache(
   async (): Promise<PhotoData[]> => fetchPhotos(),
-  ['gallery-photos-v2'],
+  ['gallery-photos-v3'],
   {
     tags: ['photos'],
-    revalidate: 3600, // refresh from Firebase at most once per hour
+    revalidate: ONE_DAY,
   }
 );
 
