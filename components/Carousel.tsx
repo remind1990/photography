@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Modal from './Modal';
 import { PhotoData } from '@/lib/fetchPhotos';
@@ -8,93 +8,129 @@ type Props = {
   images: PhotoData[];
 };
 
+const SWIPE_THRESHOLD = 40; // px before a swipe counts
+
 const Carousel = ({ images }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loaded, setLoaded] = useState<Record<string, boolean>>({});
 
+  const touchStartX = useRef<number | null>(null);
+  const touchDeltaX = useRef(0);
+
+  const count = images.length;
+
+  const goNext = useCallback(() => {
+    setCurrentIndex((i) => (count ? (i + 1) % count : 0));
+  }, [count]);
+
+  const goPrev = useCallback(() => {
+    setCurrentIndex((i) => (count ? (i - 1 + count) % count : 0));
+  }, [count]);
+
+  // Keyboard navigation
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'ArrowLeft') {
-        handlePrevClick();
-      } else if (event.key === 'ArrowRight') {
-        handleNextClick();
-      }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') goPrev();
+      else if (e.key === 'ArrowRight') goNext();
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [goNext, goPrev]);
 
-  const handlePrevClick = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
+  // Signed circular distance from the current slide, in range [-count/2, count/2]
+  const getOffset = (index: number) => {
+    let diff = index - currentIndex;
+    if (diff > count / 2) diff -= count;
+    if (diff < -count / 2) diff += count;
+    return diff;
   };
 
-  const handleNextClick = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
+  const markLoaded = (url: string) =>
+    setLoaded((prev) => (prev[url] ? prev : { ...prev, [url]: true }));
+
+  // Touch swipe (mobile)
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+  };
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX.current !== null) {
+      touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+    }
+  };
+  const onTouchEnd = () => {
+    if (touchDeltaX.current > SWIPE_THRESHOLD) goPrev();
+    else if (touchDeltaX.current < -SWIPE_THRESHOLD) goNext();
+    touchStartX.current = null;
+    touchDeltaX.current = 0;
   };
 
   const handleImageClick = (index: number) => {
+    // Ignore the click that ends a swipe so a drag doesn't open the modal.
+    if (Math.abs(touchDeltaX.current) > SWIPE_THRESHOLD) return;
     setCurrentIndex(index);
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
     <>
-      <div className="relative flex items-center justify-center w-full h-96">
-        <div className="hidden sm:flex absolute left-0">
-          <button onClick={handlePrevClick} className="btn-carousel">
+      <div
+        className="relative flex items-center justify-center w-full h-96 select-none touch-pan-y"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
+        <div className="hidden sm:flex absolute left-0 z-40">
+          <button
+            onClick={goPrev}
+            aria-label="Previous"
+            className="btn-carousel"
+          >
             &lt;
           </button>
         </div>
 
-        <div className="relative flex items-center justify-center w-full">
+        <div className="relative flex items-center justify-center w-full h-full">
           {images.map((image, index) => {
-            const isCurrent = index === currentIndex;
-            const isNext = index === (currentIndex + 1) % images.length;
-            const isPrev =
-              index === (currentIndex - 1 + images.length) % images.length;
+            const offset = getOffset(index);
 
-            // Only render current, next, and previous
-            if (!isCurrent && !isNext && !isPrev) return null;
+            // Render a window of 5: the 3 visible slides plus the next pair on
+            // each side, kept mounted (hidden) so they're already loaded before
+            // they scroll into view — this is what kills the flicker.
+            if (Math.abs(offset) > 2) return null;
 
-            const zIndex = isCurrent ? 30 : isNext || isPrev ? 20 : 10;
-            const scale = isCurrent ? 1.1 : 0.95;
-            const left = isCurrent
-              ? '50%'
-              : isNext
-                ? '70%'
-                : isPrev
-                  ? '30%'
-                  : '50%';
+            const isVisible = Math.abs(offset) <= 1;
+            const isCurrent = offset === 0;
+
+            const zIndex = isCurrent ? 30 : Math.abs(offset) === 1 ? 20 : 10;
+            const scale = isCurrent ? 1.1 : Math.abs(offset) === 1 ? 0.95 : 0.8;
+            const leftMap: Record<number, string> = {
+              [-2]: '15%',
+              [-1]: '30%',
+              0: '50%',
+              1: '70%',
+              2: '85%',
+            };
+
+            // Visible slides fade in once loaded (smooth); the ±2 preload
+            // slides stay invisible — they exist only to warm the cache.
+            const opacity = isVisible ? (loaded[image.url] ? 1 : 0) : 0;
 
             return (
               <div
-                key={index}
-                className="absolute transition-all duration-500 cursor-pointer"
+                key={image.url}
+                className="absolute transition-all duration-500 ease-out cursor-pointer"
                 style={{
                   zIndex,
                   transform: `translateX(-50%) scale(${scale})`,
-                  left,
-                  opacity: 1,
+                  left: leftMap[offset],
+                  opacity,
+                  pointerEvents: isVisible ? 'auto' : 'none',
                 }}
               >
                 <div
-                  className="relative w-[230px] h-[450px] bg-black shadow-lg overflow-hidden flex items-center justify-center"
-                  style={{
-                    borderWidth: '12px',
-                    borderStyle: 'solid',
-                    borderRadius: '30px',
-                    borderColor: 'transparent',
-                  }}
+                  className="relative w-[230px] h-[450px] bg-black shadow-lg overflow-hidden flex items-center justify-center rounded-[30px] border-[12px] border-transparent"
                   onClick={() => handleImageClick(index)}
                 >
                   <div className="absolute z-10 top-2 w-[60px] h-[15px] bg-stone-800 rounded-lg" />
@@ -102,10 +138,13 @@ const Carousel = ({ images }: Props) => {
                   <div className="absolute inset-0">
                     <Image
                       src={image.url}
-                      alt={`Carousel image ${index + 1}`}
+                      alt={`Portfolio photo ${index + 1}`}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      priority={isCurrent}
+                      sizes="(max-width: 768px) 80vw, (max-width: 1200px) 40vw, 25vw"
                       style={{ objectFit: 'cover' }}
+                      onLoad={() => markLoaded(image.url)}
+                      draggable={false}
                     />
                   </div>
                 </div>
@@ -114,29 +153,30 @@ const Carousel = ({ images }: Props) => {
           })}
         </div>
 
-        <div className="hidden sm:flex absolute right-0">
-          <button onClick={handleNextClick} className="btn-carousel">
+        <div className="hidden sm:flex absolute right-0 z-40">
+          <button onClick={goNext} aria-label="Next" className="btn-carousel">
             &gt;
           </button>
         </div>
       </div>
 
-      {/* Buttons displayed below the carousel on mobile */}
+      {/* Buttons below the carousel on mobile */}
       <div className="flex justify-between mt-20 mx-auto w-[50%] sm:hidden">
-        <button onClick={handlePrevClick} className="btn-carousel">
+        <button onClick={goPrev} aria-label="Previous" className="btn-carousel">
           &lt;
         </button>
-        <button onClick={handleNextClick} className="btn-carousel">
+        <button onClick={goNext} aria-label="Next" className="btn-carousel">
           &gt;
         </button>
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <div className="relative w-[80vw] h-[80vh]">
           <Image
             src={images[currentIndex]?.url}
-            alt={`Carousel image ${currentIndex + 1}`}
+            alt={`Portfolio photo ${currentIndex + 1}`}
             fill
+            sizes="80vw"
             style={{ objectFit: 'contain' }}
           />
         </div>
