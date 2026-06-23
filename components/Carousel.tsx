@@ -127,9 +127,10 @@ const Carousel = ({ images }: Props) => {
             const zIndex = isCurrent ? 30 : Math.abs(offset) === 1 ? 20 : 10;
             const scale = isCurrent ? 1.1 : Math.abs(offset) === 1 ? 0.95 : 0.8;
 
-            // Visible slides fade in once loaded (smooth); the off-screen
-            // preload slides stay invisible — they exist only to warm the cache.
-            const opacity = isVisible ? (loaded[image.url] ? 1 : 0) : 0;
+            // Show the phone frame immediately for visible slides; the photo
+            // itself fades in once decoded. Off-screen preload slides stay
+            // hidden — they exist only to warm the cache.
+            const wrapperOpacity = isVisible ? 1 : 0;
 
             return (
               <div
@@ -139,17 +140,27 @@ const Carousel = ({ images }: Props) => {
                   zIndex,
                   transform: `translateX(-50%) scale(${scale})`,
                   left: slidePosition(offset),
-                  opacity,
+                  opacity: wrapperOpacity,
                   pointerEvents: isVisible ? 'auto' : 'none',
                 }}
               >
+                {/* Phone body — metallic frame with edge highlights */}
                 <div
-                  className="relative w-[230px] h-[450px] bg-black shadow-lg overflow-hidden flex items-center justify-center rounded-[30px] border-[12px] border-transparent"
                   onClick={() => handleImageClick(index)}
+                  className="relative w-[236px] h-[466px] rounded-[42px] p-[5px] shadow-[0_25px_45px_-12px_rgba(0,0,0,0.65)]"
+                  style={{
+                    background:
+                      'linear-gradient(145deg,#7d7d82 0%,#27272a 16%,#46464a 38%,#202023 62%,#3f3f44 84%,#8a8a90 100%)',
+                  }}
                 >
-                  <div className="absolute z-10 top-2 w-[60px] h-[15px] bg-stone-800 rounded-lg" />
-                  <div className="absolute z-10 bottom-1 w-[75px] h-[5px] bg-stone-800 rounded-lg" />
-                  <div className="absolute inset-0">
+                  {/* Side buttons */}
+                  <div className="absolute -left-[2px] top-[92px] h-[24px] w-[3px] rounded-l-sm bg-[#37373a]" />
+                  <div className="absolute -left-[2px] top-[130px] h-[40px] w-[3px] rounded-l-sm bg-[#37373a]" />
+                  <div className="absolute -left-[2px] top-[182px] h-[40px] w-[3px] rounded-l-sm bg-[#37373a]" />
+                  <div className="absolute -right-[2px] top-[150px] h-[64px] w-[3px] rounded-r-sm bg-[#37373a]" />
+
+                  {/* Screen */}
+                  <div className="relative h-full w-full overflow-hidden rounded-[37px] bg-black">
                     <Image
                       src={image.url}
                       alt={`Portfolio photo ${index + 1}`}
@@ -161,9 +172,22 @@ const Carousel = ({ images }: Props) => {
                         ? { priority: true }
                         : { loading: 'eager' as const })}
                       sizes="(max-width: 768px) 80vw, (max-width: 1200px) 40vw, 25vw"
-                      style={{ objectFit: 'cover' }}
+                      className="object-cover transition-opacity duration-700 ease-out"
+                      style={{ opacity: loaded[image.url] ? 1 : 0 }}
                       onLoad={() => markLoaded(image.url)}
                       draggable={false}
+                    />
+
+                    {/* Dynamic Island */}
+                    <div className="absolute left-1/2 top-[11px] z-20 h-[22px] w-[78px] -translate-x-1/2 rounded-full bg-black" />
+
+                    {/* Glass reflection / sheen over the screen */}
+                    <div
+                      className="pointer-events-none absolute inset-0 z-10"
+                      style={{
+                        background:
+                          'linear-gradient(125deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0) 42%, rgba(255,255,255,0) 72%, rgba(255,255,255,0.12) 100%)',
+                      }}
                     />
                   </div>
                 </div>
