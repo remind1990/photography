@@ -239,8 +239,11 @@ const Carousel = ({ images }: Props) => {
                       draggable={false}
                     />
 
-                    {/* Dynamic Island */}
-                    <div className="absolute left-1/2 top-[11px] z-20 h-[22px] w-[78px] -translate-x-1/2 rounded-full bg-black" />
+                    {/* Dynamic Island — slim floating pill */}
+                    <div className="absolute left-1/2 top-[12px] z-20 flex h-[17px] w-[58px] -translate-x-1/2 items-center justify-end rounded-full bg-black pr-[6px]">
+                      {/* camera lens dot */}
+                      <span className="h-[7px] w-[7px] rounded-full bg-[#0b1418] ring-[1.5px] ring-[#1c2a30]" />
+                    </div>
 
                     {/* Glass reflection / sheen over the screen */}
                     <div
