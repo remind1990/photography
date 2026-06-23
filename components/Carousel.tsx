@@ -30,50 +30,28 @@ const slidePosition = (offset: number): string => {
   }
 };
 
-// Real current iPhone finishes — each slide gets a different body colour.
-// `frame` is the metallic edge-highlight gradient; `button` tints the side keys.
+// Dark, MacBook-style "Space Gray" finishes — a few close shades for subtle
+// variety, all muted/dark so they sit well on the site. `frame` is the metallic
+// edge-highlight gradient (the light stops are the reflections); `button` tints
+// the side keys.
 const PHONE_COLORS: { name: string; frame: string; button: string }[] = [
   {
-    name: 'Black Titanium',
+    name: 'Space Gray',
     frame:
-      'linear-gradient(145deg,#6e6e73 0%,#27272a 16%,#46464a 38%,#202023 62%,#3f3f44 84%,#8a8a90 100%)',
-    button: '#37373a',
+      'linear-gradient(145deg,#8a8a90 0%,#3a3a3e 16%,#5a5a60 38%,#2c2c30 62%,#4a4a50 84%,#9a9aa0 100%)',
+    button: '#34343a',
   },
   {
-    name: 'White Titanium',
+    name: 'Graphite',
     frame:
-      'linear-gradient(145deg,#ffffff 0%,#c9c9ce 16%,#e9e9ee 38%,#b7b7bd 62%,#dcdce1 84%,#ffffff 100%)',
-    button: '#bcbcc2',
+      'linear-gradient(145deg,#80807d 0%,#343330 16%,#54524d 38%,#272622 62%,#46443f 84%,#8c8c88 100%)',
+    button: '#302f2c',
   },
   {
-    name: 'Natural Titanium',
+    name: 'Midnight',
     frame:
-      'linear-gradient(145deg,#e3ddd2 0%,#9c9485 16%,#cabfae 38%,#857d6e 62%,#c2b9a8 84%,#ece6db 100%)',
-    button: '#9a917f',
-  },
-  {
-    name: 'Desert Titanium',
-    frame:
-      'linear-gradient(145deg,#efdcc0 0%,#b89a72 16%,#dcc09a 38%,#a8895f 62%,#d2b58c 84%,#f3e3cb 100%)',
-    button: '#ab8c64',
-  },
-  {
-    name: 'Ultramarine',
-    frame:
-      'linear-gradient(145deg,#9aa6e6 0%,#3b46a0 16%,#5b67c4 38%,#2f3a8f 62%,#4f5cb8 84%,#aab4ee 100%)',
-    button: '#39448f',
-  },
-  {
-    name: 'Teal',
-    frame:
-      'linear-gradient(145deg,#b9e3df 0%,#3f8d88 16%,#69b0aa 38%,#357d78 62%,#5fa6a0 84%,#c6ebe7 100%)',
-    button: '#3c847f',
-  },
-  {
-    name: 'Pink',
-    frame:
-      'linear-gradient(145deg,#fbe2e8 0%,#e0a9b8 16%,#f2c8d3 38%,#d295a6 62%,#edbcc8 84%,#fdeaee 100%)',
-    button: '#d99fad',
+      'linear-gradient(145deg,#71768a 0%,#23262f 16%,#3b3f4a 38%,#181a21 62%,#32353f 84%,#7c8294 100%)',
+    button: '#262932',
   },
 ];
 
