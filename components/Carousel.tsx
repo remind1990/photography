@@ -30,28 +30,15 @@ const slidePosition = (offset: number): string => {
   }
 };
 
-// Dark, MacBook-style "Space Gray" finishes — a few close shades for subtle
-// variety, all muted/dark so they sit well on the site. `frame` is the metallic
-// edge-highlight gradient (the light stops are the reflections); `button` tints
-// the side keys.
+// Graphite finish — a dark titanium look that sits well on the site. `frame` is
+// the metallic edge-highlight gradient (the light stops are the reflections);
+// `button` tints the side keys.
 const PHONE_COLORS: { name: string; frame: string; button: string }[] = [
-  {
-    name: 'Space Gray',
-    frame:
-      'linear-gradient(145deg,#8a8a90 0%,#3a3a3e 16%,#5a5a60 38%,#2c2c30 62%,#4a4a50 84%,#9a9aa0 100%)',
-    button: '#34343a',
-  },
   {
     name: 'Graphite',
     frame:
       'linear-gradient(145deg,#80807d 0%,#343330 16%,#54524d 38%,#272622 62%,#46443f 84%,#8c8c88 100%)',
     button: '#302f2c',
-  },
-  {
-    name: 'Midnight',
-    frame:
-      'linear-gradient(145deg,#71768a 0%,#23262f 16%,#3b3f4a 38%,#181a21 62%,#32353f 84%,#7c8294 100%)',
-    button: '#262932',
   },
 ];
 
@@ -173,7 +160,7 @@ const Carousel = ({ images }: Props) => {
                 {/* Phone body — metallic frame with edge highlights */}
                 <div
                   onClick={() => handleImageClick(index)}
-                  className="relative w-[236px] h-[466px] rounded-[42px] p-[5px] shadow-[0_25px_45px_-12px_rgba(0,0,0,0.65)]"
+                  className="relative w-[236px] h-[472px] rounded-[52px] p-[4px] shadow-[0_25px_45px_-12px_rgba(0,0,0,0.65)]"
                   style={{ background: color.frame }}
                   title={color.name}
                 >
@@ -195,42 +182,45 @@ const Carousel = ({ images }: Props) => {
                     style={{ backgroundColor: color.button }}
                   />
 
-                  {/* Screen */}
-                  <div className="relative h-full w-full overflow-hidden rounded-[37px] bg-black">
-                    <Image
-                      src={image.url}
-                      alt={`Portfolio photo ${index + 1}`}
-                      fill
-                      // Current slide is the LCP image (priority); every other
-                      // windowed slide loads eagerly so the whole window fetches
-                      // in parallel and is ready before it scrolls into view.
-                      {...(isCurrent
-                        ? { priority: true }
-                        : { loading: 'eager' as const })}
-                      // The slide is a fixed ~226px-wide phone, so request a
-                      // small variant (sharp on retina) instead of a viewport-
-                      // sized image — far less to download, much faster.
-                      sizes="240px"
-                      className="object-cover transition-opacity duration-700 ease-out"
-                      style={{ opacity: loaded[image.url] ? 1 : 0 }}
-                      onLoad={() => markLoaded(image.url)}
-                      draggable={false}
-                    />
+                  {/* Thin black bezel — uniform around the screen */}
+                  <div className="relative h-full w-full rounded-[48px] bg-black p-[3px]">
+                    {/* Screen */}
+                    <div className="relative h-full w-full overflow-hidden rounded-[45px] bg-black">
+                      <Image
+                        src={image.url}
+                        alt={`Portfolio photo ${index + 1}`}
+                        fill
+                        // Current slide is the LCP image (priority); every other
+                        // windowed slide loads eagerly so the whole window fetches
+                        // in parallel and is ready before it scrolls into view.
+                        {...(isCurrent
+                          ? { priority: true }
+                          : { loading: 'eager' as const })}
+                        // The slide is a fixed ~226px-wide phone, so request a
+                        // small variant (sharp on retina) instead of a viewport-
+                        // sized image — far less to download, much faster.
+                        sizes="240px"
+                        className="object-cover transition-opacity duration-700 ease-out"
+                        style={{ opacity: loaded[image.url] ? 1 : 0 }}
+                        onLoad={() => markLoaded(image.url)}
+                        draggable={false}
+                      />
 
-                    {/* Dynamic Island — slim floating pill */}
-                    <div className="absolute left-1/2 top-[12px] z-20 flex h-[17px] w-[58px] -translate-x-1/2 items-center justify-end rounded-full bg-black pr-[6px]">
-                      {/* camera lens dot */}
-                      <span className="h-[7px] w-[7px] rounded-full bg-[#0b1418] ring-[1.5px] ring-[#1c2a30]" />
+                      {/* Dynamic Island — slim floating pill */}
+                      <div className="absolute left-1/2 top-[12px] z-20 flex h-[17px] w-[58px] -translate-x-1/2 items-center justify-end rounded-full bg-black pr-[6px]">
+                        {/* camera lens dot */}
+                        <span className="h-[7px] w-[7px] rounded-full bg-[#0b1418] ring-[1.5px] ring-[#1c2a30]" />
+                      </div>
+
+                      {/* Glass reflection / sheen over the screen */}
+                      <div
+                        className="pointer-events-none absolute inset-0 z-10"
+                        style={{
+                          background:
+                            'linear-gradient(125deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0) 42%, rgba(255,255,255,0) 72%, rgba(255,255,255,0.12) 100%)',
+                        }}
+                      />
                     </div>
-
-                    {/* Glass reflection / sheen over the screen */}
-                    <div
-                      className="pointer-events-none absolute inset-0 z-10"
-                      style={{
-                        background:
-                          'linear-gradient(125deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0) 42%, rgba(255,255,255,0) 72%, rgba(255,255,255,0.12) 100%)',
-                      }}
-                    />
                   </div>
                 </div>
               </div>
