@@ -51,13 +51,18 @@ export const PhotoProvider = ({
   };
   const refetchPhotos = async () => {
     setLoading(true);
-    const updatedPhotos = await fetchPhotos();
-    if (updatedPhotos?.length > 0) {
-      setPhotos(sortPhotos(updatedPhotos));
+    try {
+      const updatedPhotos = await fetchPhotos();
+      if (updatedPhotos?.length > 0) {
+        setPhotos(sortPhotos(updatedPhotos));
+      }
+      // Bust the server-side cache so public visitors see the change immediately.
+      await revalidatePhotos();
+    } catch (error) {
+      console.error('refetchPhotos failed:', error);
+    } finally {
+      setLoading(false);
     }
-    // Bust the server-side cache so public visitors see the change immediately.
-    await revalidatePhotos();
-    setLoading(false);
   };
 
   useEffect(() => {

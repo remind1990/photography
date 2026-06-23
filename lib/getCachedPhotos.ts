@@ -13,11 +13,28 @@ import { fetchPhotos, PhotoData } from './fetchPhotos';
 // are still reflected immediately in the editing session; a full reload then
 // picks up the change within the revalidate window (or instantly if you call
 // `revalidateTag('photos')` after a mutation).
-export const getCachedPhotos = unstable_cache(
+// The cached fetch lets fetchPhotos throw on failure, so unstable_cache never
+// stores an empty/error result (a throw is not cached). The key is versioned so
+// bumping it discards any previously cached empty list from a past outage.
+const cachedFetch = unstable_cache(
   async (): Promise<PhotoData[]> => fetchPhotos(),
-  ['gallery-photos'],
+  ['gallery-photos-v2'],
   {
     tags: ['photos'],
     revalidate: 3600, // refresh from Firebase at most once per hour
   }
 );
+
+export async function getCachedPhotos(): Promise<PhotoData[]> {
+  try {
+    return await cachedFetch();
+  } catch (error) {
+    // Firebase failed for this request — render an empty gallery so the site
+    // stays up, but DON'T cache it. The next request retries Firebase.
+    console.error(
+      'getCachedPhotos: Firebase unavailable, rendering empty',
+      error
+    );
+    return [];
+  }
+}

@@ -28,11 +28,13 @@ export const fetchPhotos = async (): Promise<PhotoData[]> => {
     photoData.sort((a, b) => a.order - b.order);
     return photoData;
   } catch (error) {
-    // Don't let a Storage failure (e.g. quota-exceeded) crash the whole site:
-    // this runs in the root layout, so throwing would 500 every page.
-    // Render with an empty gallery instead.
+    // Rethrow so callers can decide what to do. Importantly, this lets the
+    // cache (getCachedPhotos) NOT store an empty result on a transient Storage
+    // failure — otherwise a single error would freeze an empty gallery for the
+    // whole revalidate window. Callers (server layout + client context) catch
+    // this and fall back to an empty gallery for that one render.
     console.error('Error fetching photos:', error);
-    return [];
+    throw error;
   }
 };
 
