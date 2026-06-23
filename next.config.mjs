@@ -19,6 +19,12 @@ const nextConfig = {
     // cache never serves a stale image.
     minimumCacheTTL: 2592000,
   },
+  async redirects() {
+    return [
+      // The portfolio is now the home page (/); keep old links working.
+      { source: '/portfolio', destination: '/', permanent: true },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

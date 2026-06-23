@@ -1,5 +1,6 @@
-import Main from './pages/Main/Main';
+import Portfolio from './pages/Portfolio/Portfolio';
 
-export default function page() {
-  return <Main />;
+// The portfolio is the landing page — the site opens straight into the work.
+export default function Page() {
+  return <Portfolio />;
 }

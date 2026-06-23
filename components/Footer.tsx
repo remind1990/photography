@@ -20,17 +20,17 @@ function Footer() {
         <h2 className="text-lg font-semibold">{t('quick_links')}</h2>
         <ul>
           <li>
-            <Link href="portfolio" className="hover:underline">
+            <Link href="/" className="hover:underline">
               {t('portfolio')}
             </Link>
           </li>
           <li>
-            <Link href="services" className="hover:underline">
+            <Link href="/services" className="hover:underline">
               {t('services')}
             </Link>
           </li>
           <li>
-            <Link href="contacts" className="hover:underline">
+            <Link href="/contacts" className="hover:underline">
               {t('contacts')}
             </Link>
           </li>

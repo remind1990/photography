@@ -9,11 +9,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
   const routes = [
-    { path: '/', priority: 1 },
+    { path: '/', priority: 1 }, // portfolio (landing page)
     { path: '/services', priority: 0.9 },
     { path: '/services/family-photoshoot', priority: 0.8 },
     { path: '/services/individual-portraits', priority: 0.8 },
-    { path: '/portfolio', priority: 0.7 },
+    { path: '/home', priority: 0.7 },
     { path: '/about', priority: 0.6 },
     { path: '/contacts', priority: 0.6 },
   ];

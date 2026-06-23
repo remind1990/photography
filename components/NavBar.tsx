@@ -19,9 +19,9 @@ const NavBar: React.FC<Props> = () => {
   const t = useTranslations('Navigation');
 
   const navItems = [
-    { name: t('home'), path: '/' },
+    { name: t('portfolio'), path: '/' },
+    { name: t('home'), path: '/home' },
     { name: t('about'), path: '/about' },
-    { name: t('portfolio'), path: '/portfolio' },
     { name: t('contacts'), path: '/contacts' },
     { name: t('gallery'), path: '/gallery' },
   ];
