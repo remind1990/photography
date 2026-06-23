@@ -30,6 +30,53 @@ const slidePosition = (offset: number): string => {
   }
 };
 
+// Real current iPhone finishes — each slide gets a different body colour.
+// `frame` is the metallic edge-highlight gradient; `button` tints the side keys.
+const PHONE_COLORS: { name: string; frame: string; button: string }[] = [
+  {
+    name: 'Black Titanium',
+    frame:
+      'linear-gradient(145deg,#6e6e73 0%,#27272a 16%,#46464a 38%,#202023 62%,#3f3f44 84%,#8a8a90 100%)',
+    button: '#37373a',
+  },
+  {
+    name: 'White Titanium',
+    frame:
+      'linear-gradient(145deg,#ffffff 0%,#c9c9ce 16%,#e9e9ee 38%,#b7b7bd 62%,#dcdce1 84%,#ffffff 100%)',
+    button: '#bcbcc2',
+  },
+  {
+    name: 'Natural Titanium',
+    frame:
+      'linear-gradient(145deg,#e3ddd2 0%,#9c9485 16%,#cabfae 38%,#857d6e 62%,#c2b9a8 84%,#ece6db 100%)',
+    button: '#9a917f',
+  },
+  {
+    name: 'Desert Titanium',
+    frame:
+      'linear-gradient(145deg,#efdcc0 0%,#b89a72 16%,#dcc09a 38%,#a8895f 62%,#d2b58c 84%,#f3e3cb 100%)',
+    button: '#ab8c64',
+  },
+  {
+    name: 'Ultramarine',
+    frame:
+      'linear-gradient(145deg,#9aa6e6 0%,#3b46a0 16%,#5b67c4 38%,#2f3a8f 62%,#4f5cb8 84%,#aab4ee 100%)',
+    button: '#39448f',
+  },
+  {
+    name: 'Teal',
+    frame:
+      'linear-gradient(145deg,#b9e3df 0%,#3f8d88 16%,#69b0aa 38%,#357d78 62%,#5fa6a0 84%,#c6ebe7 100%)',
+    button: '#3c847f',
+  },
+  {
+    name: 'Pink',
+    frame:
+      'linear-gradient(145deg,#fbe2e8 0%,#e0a9b8 16%,#f2c8d3 38%,#d295a6 62%,#edbcc8 84%,#fdeaee 100%)',
+    button: '#d99fad',
+  },
+];
+
 const Carousel = ({ images }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -131,6 +178,7 @@ const Carousel = ({ images }: Props) => {
             // itself fades in once decoded. Off-screen preload slides stay
             // hidden — they exist only to warm the cache.
             const wrapperOpacity = isVisible ? 1 : 0;
+            const color = PHONE_COLORS[index % PHONE_COLORS.length];
 
             return (
               <div
@@ -148,16 +196,26 @@ const Carousel = ({ images }: Props) => {
                 <div
                   onClick={() => handleImageClick(index)}
                   className="relative w-[236px] h-[466px] rounded-[42px] p-[5px] shadow-[0_25px_45px_-12px_rgba(0,0,0,0.65)]"
-                  style={{
-                    background:
-                      'linear-gradient(145deg,#7d7d82 0%,#27272a 16%,#46464a 38%,#202023 62%,#3f3f44 84%,#8a8a90 100%)',
-                  }}
+                  style={{ background: color.frame }}
+                  title={color.name}
                 >
                   {/* Side buttons */}
-                  <div className="absolute -left-[2px] top-[92px] h-[24px] w-[3px] rounded-l-sm bg-[#37373a]" />
-                  <div className="absolute -left-[2px] top-[130px] h-[40px] w-[3px] rounded-l-sm bg-[#37373a]" />
-                  <div className="absolute -left-[2px] top-[182px] h-[40px] w-[3px] rounded-l-sm bg-[#37373a]" />
-                  <div className="absolute -right-[2px] top-[150px] h-[64px] w-[3px] rounded-r-sm bg-[#37373a]" />
+                  <div
+                    className="absolute -left-[2px] top-[92px] h-[24px] w-[3px] rounded-l-sm"
+                    style={{ backgroundColor: color.button }}
+                  />
+                  <div
+                    className="absolute -left-[2px] top-[130px] h-[40px] w-[3px] rounded-l-sm"
+                    style={{ backgroundColor: color.button }}
+                  />
+                  <div
+                    className="absolute -left-[2px] top-[182px] h-[40px] w-[3px] rounded-l-sm"
+                    style={{ backgroundColor: color.button }}
+                  />
+                  <div
+                    className="absolute -right-[2px] top-[150px] h-[64px] w-[3px] rounded-r-sm"
+                    style={{ backgroundColor: color.button }}
+                  />
 
                   {/* Screen */}
                   <div className="relative h-full w-full overflow-hidden rounded-[37px] bg-black">
@@ -171,7 +229,10 @@ const Carousel = ({ images }: Props) => {
                       {...(isCurrent
                         ? { priority: true }
                         : { loading: 'eager' as const })}
-                      sizes="(max-width: 768px) 80vw, (max-width: 1200px) 40vw, 25vw"
+                      // The slide is a fixed ~226px-wide phone, so request a
+                      // small variant (sharp on retina) instead of a viewport-
+                      // sized image — far less to download, much faster.
+                      sizes="240px"
                       className="object-cover transition-opacity duration-700 ease-out"
                       style={{ opacity: loaded[image.url] ? 1 : 0 }}
                       onLoad={() => markLoaded(image.url)}
