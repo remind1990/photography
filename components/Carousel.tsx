@@ -9,6 +9,26 @@ type Props = {
 };
 
 const SWIPE_THRESHOLD = 40; // px before a swipe counts
+const WINDOW = 5; // how many slides to keep mounted on each side (preload range)
+
+// Horizontal position per offset. Visible slides (|offset| <= 1) sit centre /
+// left / right; the rest are parked off the sides (invisible) just to preload.
+const slidePosition = (offset: number): string => {
+  switch (offset) {
+    case 0:
+      return '50%';
+    case -1:
+      return '30%';
+    case 1:
+      return '70%';
+    case -2:
+      return '15%';
+    case 2:
+      return '85%';
+    default:
+      return offset < 0 ? '0%' : '100%';
+  }
+};
 
 const Carousel = ({ images }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -95,26 +115,20 @@ const Carousel = ({ images }: Props) => {
           {images.map((image, index) => {
             const offset = getOffset(index);
 
-            // Render a window of 5: the 3 visible slides plus the next pair on
-            // each side, kept mounted (hidden) so they're already loaded before
-            // they scroll into view — this is what kills the flicker.
-            if (Math.abs(offset) > 2) return null;
+            // Keep a wide window mounted (±5): only 3 slides are visible, the
+            // other 8 are invisible preloaders that eager-load in parallel, so
+            // every slide is already decoded before it scrolls in — the user
+            // never sees a flicker.
+            if (Math.abs(offset) > WINDOW) return null;
 
             const isVisible = Math.abs(offset) <= 1;
             const isCurrent = offset === 0;
 
             const zIndex = isCurrent ? 30 : Math.abs(offset) === 1 ? 20 : 10;
             const scale = isCurrent ? 1.1 : Math.abs(offset) === 1 ? 0.95 : 0.8;
-            const leftMap: Record<number, string> = {
-              [-2]: '15%',
-              [-1]: '30%',
-              0: '50%',
-              1: '70%',
-              2: '85%',
-            };
 
-            // Visible slides fade in once loaded (smooth); the ±2 preload
-            // slides stay invisible — they exist only to warm the cache.
+            // Visible slides fade in once loaded (smooth); the off-screen
+            // preload slides stay invisible — they exist only to warm the cache.
             const opacity = isVisible ? (loaded[image.url] ? 1 : 0) : 0;
 
             return (
@@ -124,7 +138,7 @@ const Carousel = ({ images }: Props) => {
                 style={{
                   zIndex,
                   transform: `translateX(-50%) scale(${scale})`,
-                  left: leftMap[offset],
+                  left: slidePosition(offset),
                   opacity,
                   pointerEvents: isVisible ? 'auto' : 'none',
                 }}
@@ -140,7 +154,12 @@ const Carousel = ({ images }: Props) => {
                       src={image.url}
                       alt={`Portfolio photo ${index + 1}`}
                       fill
-                      priority={isCurrent}
+                      // Current slide is the LCP image (priority); every other
+                      // windowed slide loads eagerly so the whole window fetches
+                      // in parallel and is ready before it scrolls into view.
+                      {...(isCurrent
+                        ? { priority: true }
+                        : { loading: 'eager' as const })}
                       sizes="(max-width: 768px) 80vw, (max-width: 1200px) 40vw, 25vw"
                       style={{ objectFit: 'cover' }}
                       onLoad={() => markLoaded(image.url)}
