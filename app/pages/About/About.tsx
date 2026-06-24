@@ -13,7 +13,7 @@ const About = (props: Props) => {
         <Image
           className="absolute bottom-[-100px] md:bottom-[-200px] w-[200px] h-[250px] md:w-[400px] md:h-[500px] object-cover"
           src="/photo6.jpg"
-          alt="avatar"
+          alt="Olha Dubenko, photographer in St. John's, Newfoundland"
           width={400}
           height={500}
         />
@@ -28,7 +28,12 @@ const About = (props: Props) => {
           </blockquote>
         </div>
         <div className="w-full md:max-w-[50%]">
-          <Image src="/photo8.jpg" alt="avatar" width={500} height={500} />
+          <Image
+            src="/photo8.jpg"
+            alt="Portrait photography by Olha Dubenko"
+            width={500}
+            height={500}
+          />
           <blockquote className="font-serif italic text-xl text-stone-800 my-6 py-4 px-6 border-l-4 border-gray-300 max-w-[500px]">
             {t('quote')}
             <cite className="block mt-2 text-right text-stone-600">

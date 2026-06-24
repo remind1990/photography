@@ -23,7 +23,7 @@ const Main = () => {
         <Image
           className="flex-shrink-0"
           src="/photo1.jpg"
-          alt="photo1"
+          alt="Fashion portrait photography by Olha Dubenko"
           width={500}
           height={600}
         />
@@ -34,7 +34,7 @@ const Main = () => {
           <Image
             className="ml-0  sm:ml-auto mt-auto flex-shrink-0"
             src="/photo2.jpg"
-            alt="photo2"
+            alt="Stylish portrait photoshoot in St. John's, Newfoundland"
             width={300}
             height={300}
           />
@@ -46,7 +46,7 @@ const Main = () => {
           <Image
             className="ml-auto mt-auto"
             src="/photo3.jpg"
-            alt="photo2"
+            alt="Creative portrait photography by Dubenko Photography"
             width={500}
             height={700}
           />
@@ -57,7 +57,7 @@ const Main = () => {
           <Image
             className="mr-auto"
             src="/photo4.jpg"
-            alt="photo2"
+            alt="Portrait session by Olha Dubenko in St. John's"
             width={500}
             height={700}
           />

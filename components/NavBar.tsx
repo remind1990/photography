@@ -35,7 +35,7 @@ const NavBar: React.FC<Props> = () => {
       <div className="flex items-center w-full">
         <Image
           src="/logo.png"
-          alt="Logo"
+          alt="Dubenko Photography logo"
           width={30}
           height={30}
           className="mr-4 rounded-full cursor-pointer"

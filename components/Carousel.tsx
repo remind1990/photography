@@ -225,7 +225,7 @@ const Carousel = ({ images }: Props) => {
                     <div className="relative h-full w-full overflow-hidden rounded-[45px] bg-black">
                       <Image
                         src={image.url}
-                        alt={`Portfolio photo ${index + 1}`}
+                        alt={`Photography by Olha Dubenko — portfolio ${index + 1}`}
                         fill
                         // Tiered loading: the 3 visible slides get `priority`
                         // so Next emits <link rel="preload"> in the HTML (cold
@@ -297,7 +297,7 @@ const Carousel = ({ images }: Props) => {
         <div className="relative w-[80vw] h-[80vh]">
           <Image
             src={images[currentIndex]?.url}
-            alt={`Portfolio photo ${currentIndex + 1}`}
+            alt={`Photography by Olha Dubenko — portfolio ${currentIndex + 1}`}
             fill
             sizes="80vw"
             quality={90}
