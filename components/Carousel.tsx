@@ -232,10 +232,13 @@ const Carousel = ({ images }: Props) => {
                         {...(isCurrent
                           ? { priority: true }
                           : { loading: 'eager' as const })}
-                        // The slide is a fixed ~226px-wide phone, so request a
-                        // small variant (sharp on retina) instead of a viewport-
-                        // sized image — far less to download, much faster.
-                        sizes="240px"
+                        // The slide is a fixed ~226px-wide phone. On phones the
+                        // high DPR already pulls a crisp image from a small slot,
+                        // but on desktop (often DPR 1, big screen) we need more
+                        // pixels or it looks soft — so request a larger variant
+                        // there. Higher quality keeps the wallpaper crisp.
+                        sizes="(max-width: 640px) 240px, 460px"
+                        quality={90}
                         className="object-cover transition-opacity duration-700 ease-out"
                         style={{ opacity: loaded[image.url] ? 1 : 0 }}
                         onLoad={() => markLoaded(image.url)}
@@ -292,6 +295,7 @@ const Carousel = ({ images }: Props) => {
             alt={`Portfolio photo ${currentIndex + 1}`}
             fill
             sizes="80vw"
+            quality={90}
             style={{ objectFit: 'contain' }}
           />
         </div>
