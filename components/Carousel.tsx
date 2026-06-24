@@ -170,6 +170,7 @@ const Carousel = ({ images }: Props) => {
             if (Math.abs(offset) > WINDOW) return null;
 
             const isVisible = Math.abs(offset) <= 1;
+            const isNear = Math.abs(offset) <= 2;
             const isCurrent = offset === 0;
 
             const zIndex = isCurrent ? 30 : Math.abs(offset) === 1 ? 20 : 10;
@@ -226,12 +227,16 @@ const Carousel = ({ images }: Props) => {
                         src={image.url}
                         alt={`Portfolio photo ${index + 1}`}
                         fill
-                        // Current slide is the LCP image (priority); every other
-                        // windowed slide loads eagerly so the whole window fetches
-                        // in parallel and is ready before it scrolls into view.
-                        {...(isCurrent
+                        // Tiered loading: the 3 visible slides get `priority`
+                        // so Next emits <link rel="preload"> in the HTML (cold
+                        // preload before JS); the ±2 neighbours load eagerly so
+                        // the first swipe is instant; the far preload slides are
+                        // lazy so we don't pull all 11 heavy images at once.
+                        {...(isVisible
                           ? { priority: true }
-                          : { loading: 'eager' as const })}
+                          : isNear
+                            ? { loading: 'eager' as const }
+                            : { loading: 'lazy' as const })}
                         // The slide is a fixed ~226px-wide phone. On phones the
                         // high DPR already pulls a crisp image from a small slot,
                         // but on desktop (often DPR 1, big screen) we need more
