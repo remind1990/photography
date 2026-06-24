@@ -47,7 +47,7 @@ const Carousel = ({ images }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loaded, setLoaded] = useState<Record<string, boolean>>({});
 
-  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const swipedRef = useRef(false);
 
   const count = images.length;
@@ -81,30 +81,50 @@ const Carousel = ({ images }: Props) => {
   const markLoaded = (url: string) =>
     setLoaded((prev) => (prev[url] ? prev : { ...prev, [url]: true }));
 
-  // Touch swipe (mobile). Advance exactly one slide as soon as the finger has
-  // travelled horizontally past the threshold — feels light and responsive —
-  // then lock until the finger lifts so one gesture = one step. Vertical drags
-  // are ignored so the page still scrolls normally.
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStart.current = {
-      x: e.touches[0].clientX,
-      y: e.touches[0].clientY,
+  // Touch swipe (mobile). Native, non-passive listeners let us preventDefault
+  // once a gesture locks horizontal — that stops the page scrolling vertically
+  // mid-swipe (the "two scrolls fighting" feeling). One gesture = one slide;
+  // vertical drags fall through and scroll the page normally.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    let startX = 0;
+    let startY = 0;
+    let axis: 'x' | 'y' | null = null;
+
+    const onStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      axis = null;
+      swipedRef.current = false;
     };
-    swipedRef.current = false;
-  };
-  const onTouchMove = (e: React.TouchEvent) => {
-    if (!touchStart.current || swipedRef.current) return;
-    const dx = e.touches[0].clientX - touchStart.current.x;
-    const dy = e.touches[0].clientY - touchStart.current.y;
-    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE_THRESHOLD) {
-      if (dx > 0) goPrev();
-      else goNext();
-      swipedRef.current = true;
-    }
-  };
-  const onTouchEnd = () => {
-    touchStart.current = null;
-  };
+
+    const onMove = (e: TouchEvent) => {
+      const dx = e.touches[0].clientX - startX;
+      const dy = e.touches[0].clientY - startY;
+
+      // Lock the gesture to an axis after a few px of travel.
+      if (axis === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+        axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+      }
+      if (axis !== 'x') return;
+
+      e.preventDefault(); // own the gesture — no vertical scroll
+      if (!swipedRef.current && Math.abs(dx) > SWIPE_THRESHOLD) {
+        if (dx > 0) goPrev();
+        else goNext();
+        swipedRef.current = true;
+      }
+    };
+
+    el.addEventListener('touchstart', onStart, { passive: true });
+    el.addEventListener('touchmove', onMove, { passive: false });
+    return () => {
+      el.removeEventListener('touchstart', onStart);
+      el.removeEventListener('touchmove', onMove);
+    };
+  }, [goNext, goPrev]);
 
   const handleImageClick = (index: number) => {
     // Ignore the tap that ends a swipe so a drag doesn't open the modal.
@@ -116,10 +136,8 @@ const Carousel = ({ images }: Props) => {
   return (
     <>
       <div
+        ref={containerRef}
         className="group relative flex h-96 w-full select-none items-center justify-center touch-pan-y"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
       >
         <button
           onClick={goPrev}
