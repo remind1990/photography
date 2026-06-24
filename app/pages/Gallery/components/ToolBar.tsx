@@ -32,7 +32,12 @@ function ToolBar({}: Props) {
 
         if (file.size > 512 * 1024) {
           const options = {
-            maxSizeMB: 0.5,
+            // Portfolio is the brand's showcase — keep photos high quality.
+            // (Storage/egress is cheap on Blaze.) Cap size/resolution so the
+            // web stays fast, but far above the old 0.5MB that looked soft.
+            maxSizeMB: 2.5,
+            maxWidthOrHeight: 2560,
+            initialQuality: 0.9,
             useWebWorker: true,
           };
           try {

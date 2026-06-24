@@ -237,8 +237,8 @@ const Carousel = ({ images }: Props) => {
                         // but on desktop (often DPR 1, big screen) we need more
                         // pixels or it looks soft — so request a larger variant
                         // there. Higher quality keeps the wallpaper crisp.
-                        sizes="(max-width: 640px) 240px, 460px"
-                        quality={90}
+                        sizes="(max-width: 640px) 340px, 480px"
+                        quality={92}
                         className="object-cover transition-opacity duration-700 ease-out"
                         style={{ opacity: loaded[image.url] ? 1 : 0 }}
                         onLoad={() => markLoaded(image.url)}
