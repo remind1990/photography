@@ -8,7 +8,7 @@ type Props = {
   images: PhotoData[];
 };
 
-const SWIPE_THRESHOLD = 40; // px before a swipe counts
+const SWIPE_THRESHOLD = 30; // px of horizontal travel before a swipe counts
 const WINDOW = 5; // how many slides to keep mounted on each side (preload range)
 
 // Horizontal position per offset. Visible slides (|offset| <= 1) sit centre /
@@ -47,8 +47,8 @@ const Carousel = ({ images }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loaded, setLoaded] = useState<Record<string, boolean>>({});
 
-  const touchStartX = useRef<number | null>(null);
-  const touchDeltaX = useRef(0);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const swipedRef = useRef(false);
 
   const count = images.length;
 
@@ -81,26 +81,34 @@ const Carousel = ({ images }: Props) => {
   const markLoaded = (url: string) =>
     setLoaded((prev) => (prev[url] ? prev : { ...prev, [url]: true }));
 
-  // Touch swipe (mobile)
+  // Touch swipe (mobile). Advance exactly one slide as soon as the finger has
+  // travelled horizontally past the threshold — feels light and responsive —
+  // then lock until the finger lifts so one gesture = one step. Vertical drags
+  // are ignored so the page still scrolls normally.
   const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchDeltaX.current = 0;
+    touchStart.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    };
+    swipedRef.current = false;
   };
   const onTouchMove = (e: React.TouchEvent) => {
-    if (touchStartX.current !== null) {
-      touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+    if (!touchStart.current || swipedRef.current) return;
+    const dx = e.touches[0].clientX - touchStart.current.x;
+    const dy = e.touches[0].clientY - touchStart.current.y;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE_THRESHOLD) {
+      if (dx > 0) goPrev();
+      else goNext();
+      swipedRef.current = true;
     }
   };
   const onTouchEnd = () => {
-    if (touchDeltaX.current > SWIPE_THRESHOLD) goPrev();
-    else if (touchDeltaX.current < -SWIPE_THRESHOLD) goNext();
-    touchStartX.current = null;
-    touchDeltaX.current = 0;
+    touchStart.current = null;
   };
 
   const handleImageClick = (index: number) => {
-    // Ignore the click that ends a swipe so a drag doesn't open the modal.
-    if (Math.abs(touchDeltaX.current) > SWIPE_THRESHOLD) return;
+    // Ignore the tap that ends a swipe so a drag doesn't open the modal.
+    if (swipedRef.current) return;
     setCurrentIndex(index);
     setIsModalOpen(true);
   };
@@ -108,20 +116,30 @@ const Carousel = ({ images }: Props) => {
   return (
     <>
       <div
-        className="relative flex items-center justify-center w-full h-96 select-none touch-pan-y"
+        className="group relative flex h-96 w-full select-none items-center justify-center touch-pan-y"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <div className="hidden sm:flex absolute left-0 z-40">
-          <button
-            onClick={goPrev}
-            aria-label="Previous"
-            className="btn-carousel"
+        <button
+          onClick={goPrev}
+          aria-label="Previous photo"
+          className="absolute left-2 top-1/2 z-40 hidden -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/25 p-2.5 text-white/70 opacity-0 backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-black/45 hover:text-white focus-visible:opacity-100 group-hover:opacity-100 sm:flex md:left-4"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
           >
-            &lt;
-          </button>
-        </div>
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
 
         <div className="relative flex items-center justify-center w-full h-full">
           {images.map((image, index) => {
@@ -148,7 +166,7 @@ const Carousel = ({ images }: Props) => {
             return (
               <div
                 key={image.url}
-                className="absolute transition-all duration-500 ease-out cursor-pointer"
+                className="absolute cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform"
                 style={{
                   zIndex,
                   transform: `translateX(-50%) scale(${scale})`,
@@ -228,20 +246,24 @@ const Carousel = ({ images }: Props) => {
           })}
         </div>
 
-        <div className="hidden sm:flex absolute right-0 z-40">
-          <button onClick={goNext} aria-label="Next" className="btn-carousel">
-            &gt;
-          </button>
-        </div>
-      </div>
-
-      {/* Buttons below the carousel on mobile */}
-      <div className="flex justify-between mt-20 mx-auto w-[50%] sm:hidden">
-        <button onClick={goPrev} aria-label="Previous" className="btn-carousel">
-          &lt;
-        </button>
-        <button onClick={goNext} aria-label="Next" className="btn-carousel">
-          &gt;
+        <button
+          onClick={goNext}
+          aria-label="Next photo"
+          className="absolute right-2 top-1/2 z-40 hidden -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/25 p-2.5 text-white/70 opacity-0 backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-black/45 hover:text-white focus-visible:opacity-100 group-hover:opacity-100 sm:flex md:right-4"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9 18l6-6-6-6" />
+          </svg>
         </button>
       </div>
 
