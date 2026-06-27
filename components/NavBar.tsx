@@ -21,6 +21,7 @@ const NavBar: React.FC<Props> = () => {
   const navItems = [
     { name: t('portfolio'), path: '/' },
     { name: t('home'), path: '/home' },
+    { name: t('services'), path: '/services' },
     { name: t('about'), path: '/about' },
     { name: t('contacts'), path: '/contacts' },
     { name: t('gallery'), path: '/gallery' },
